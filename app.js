@@ -161,8 +161,8 @@ const mobileBar = $(".mobile-contact");
 let lastScrollY = 0; // read on the first scroll only: no layout read during start-up
 let travel = 0; // distance scrolled in the current direction (+ down, - up)
 let barOn = false;
-// Never over the contact chapter or the footer (they carry the same action), nor at the very bottom,
-// where the end-of-page bounce makes tiny up/down moves.
+// Never over the contact chapter or the footer (they carry the same action; the footer also covers the
+// end-of-page bounce, which makes tiny up/down moves).
 let contactVisible = false;
 let footerVisible = false;
 const setBar = (on) => { if (on !== barOn) { barOn = on; mobileBar.classList.toggle("is-visible", on); } };
@@ -171,10 +171,11 @@ new IntersectionObserver(([e]) => { footerVisible = e.isIntersecting; if (footer
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
   const dy = y - lastScrollY;
+  if (!dy) return; // a scroll event without movement must not reset the travelled distance
   lastScrollY = y;
   travel = Math.sign(dy) === Math.sign(travel) ? travel + dy : dy;
-  const atBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 80;
-  if (y < window.innerHeight * 0.8 || contactVisible || footerVisible || atBottom) { setBar(false); return; }
+  // The footer closes the page: while it is visible (bottom bounce included) the bar stays hidden.
+  if (y < window.innerHeight * 0.8 || contactVisible || footerVisible) { setBar(false); return; }
   // Shown after a real scroll up (48 px), hidden after a real scroll down: no flicker on small moves.
   if (travel <= -48) setBar(true);
   else if (travel >= 48) setBar(false);
