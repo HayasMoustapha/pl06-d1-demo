@@ -159,13 +159,25 @@ new IntersectionObserver(([e]) => $(".chapter-counter").classList.toggle("is-hid
 /* ---------- mobile contact bar: appears on scroll-up, never over the contact chapter ---------- */
 const mobileBar = $(".mobile-contact");
 let lastScrollY = 0; // read on the first scroll only: no layout read during start-up
+let travel = 0; // distance scrolled in the current direction (+ down, - up)
+let barOn = false;
+// Never over the contact chapter or the footer (they carry the same action), nor at the very bottom,
+// where the end-of-page bounce makes tiny up/down moves.
 let contactVisible = false;
-new IntersectionObserver(([e]) => { contactVisible = e.isIntersecting; if (contactVisible) mobileBar.classList.remove("is-visible"); }, { threshold: 0.1 }).observe($("#contact"));
+let footerVisible = false;
+const setBar = (on) => { if (on !== barOn) { barOn = on; mobileBar.classList.toggle("is-visible", on); } };
+new IntersectionObserver(([e]) => { contactVisible = e.isIntersecting; if (contactVisible) setBar(false); }, { threshold: 0.1 }).observe($("#contact"));
+new IntersectionObserver(([e]) => { footerVisible = e.isIntersecting; if (footerVisible) setBar(false); }).observe($(".site-footer"));
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
-  const pastHero = y > window.innerHeight * 0.8;
-  mobileBar.classList.toggle("is-visible", pastHero && !contactVisible && y < lastScrollY - 2);
-  if (Math.abs(y - lastScrollY) > 2) lastScrollY = y;
+  const dy = y - lastScrollY;
+  lastScrollY = y;
+  travel = Math.sign(dy) === Math.sign(travel) ? travel + dy : dy;
+  const atBottom = y + window.innerHeight >= document.documentElement.scrollHeight - 80;
+  if (y < window.innerHeight * 0.8 || contactVisible || footerVisible || atBottom) { setBar(false); return; }
+  // Shown after a real scroll up (48 px), hidden after a real scroll down: no flicker on small moves.
+  if (travel <= -48) setBar(true);
+  else if (travel >= 48) setBar(false);
 }, { passive: true });
 
 /* ---------- hero: the faucet drips ----------
@@ -451,7 +463,9 @@ function updateThread() {
   if (!threadLength) return;
   let offset = 0;
   if (motionOK) {
-    const front = window.innerHeight * 0.76 - main.getBoundingClientRect().top;
+    // The head waits at the splash until the visitor scrolls (nothing is drawn on the hero at rest), then
+    // follows the scroll and joins the usual reading line (76 % of the screen).
+    const front = Math.min(window.innerHeight * 0.76 - main.getBoundingClientRect().top, (samples.length ? samples[0][1] - 1 : 0) + window.scrollY * 1.6);
     let drawn = 0;
     let head = null;
     for (const s of samples) if (s[1] <= front && s[0] > drawn) { drawn = s[0]; head = s; }
