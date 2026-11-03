@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow"><!-- aperçu temporaire de mesure -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f2427">
+  <meta name="description" content="Démonstration de site pour artisan plombier : suivez une goutte d’eau, du premier signe chez vous jusqu’au bon geste du professionnel.">
+  <title>PL—06 — Le voyage de la goutte</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/fraunces-roman-300-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/dm-sans-400-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/fraunces-italic-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/d1/hero-robinet-plate-960.webp" imagesrcset="assets/d1/hero-robinet-plate-480.webp 480w, assets/d1/hero-robinet-plate-960.webp 960w, assets/d1/hero-robinet-plate-1344.webp 1344w" imagesizes="(min-width: 900px) 44vw, min(56vw, 250px)" type="image/webp" fetchpriority="high">
+  <style>
+    /* Fraunces, DM Sans, IBM Plex Mono — SIL OFL 1.1, self-hosted (fonts/fonts.css inlined: one blocking request less). */
+    @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 300 400; font-display: swap; src: url(fonts/fraunces-roman-300-400.woff2) format('woff2'); }
+    @font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 300; font-display: swap; src: url(fonts/fraunces-italic-300.woff2) format('woff2'); }
+    @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(fonts/dm-sans-400-600.woff2) format('woff2'); }
+    @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400 500; font-display: optional; src: url(fonts/IBMPlexMono-Medium.woff2) format('woff2'); }
+  </style>
+  <style id="styles-inline">
+/* generated from styles.css by proof/tools/inline-css.mjs: edit styles.css, then run the script */
+/* PL—06 · D1 « Le voyage de la goutte » — carte G2 approuvée le 25/10/2026. */
+:root {
+  --night: #0f2427;
+  --night-2: #16323a;
+  --plan: #e6ecee;
+  --paper: #f2efe6;
+  --paper-2: #e9e4d6;
+  --ink: #14292c;
+  --ink-soft: #3d5357;
+  --copper: #c47a4a;
+  --copper-deep: #9a5530;
+  --water: #5fbfc0;
+  --water-deep: #2f8f92;
+  --brass: #d9a86c;
+  --action: #c4513a;
+  --action-deep: #a8432e;
+  --line-dark: rgba(242, 239, 230, 0.16);
+  --line-light: rgba(20, 41, 44, 0.14);
+  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+  --gutter: clamp(16px, 5vw, 72px);
+  --max: 1320px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --header-h: 68px;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 24px); }
+/* ScrollTrigger measures by scrolling: CSS smooth scroll would skew its pin positions. */
+html.js-motion { scroll-behavior: auto; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; letter-spacing: -0.02em; text-wrap: balance; }
+h1 em, h2 em { font-style: italic; font-weight: 300; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; border-radius: 4px; }
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  padding: 10px 16px; background: var(--paper); color: var(--ink); border-radius: 6px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+/* ---------- demo bar + header ---------- */
+.demo-bar {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 7px var(--gutter);
+  background: #0a191b; color: rgba(242, 239, 230, 0.78);
+  font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.08em; text-align: center;
+}
+.live-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+
+/* Floating glass navigation: a pill that floats over the page and firms up once scrolled. */
+.site-header {
+  position: sticky; top: 0; z-index: 40; display: flex; align-items: center;
+  height: var(--header-h); padding: 8px var(--gutter); color: var(--paper); pointer-events: none;
+}
+.nav-shell {
+  pointer-events: auto; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  width: 100%; max-width: calc(var(--max) + 40px); height: 100%; margin: 0 auto; padding: 0 6px 0 14px;
+  border-radius: 999px; border: 1px solid rgba(242, 239, 230, 0.1);
+  background: rgba(12, 30, 33, 0.86); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  transition: background-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.site-header.is-scrolled .nav-shell { background: rgba(12, 30, 33, 0.94); box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.75); }
+/* At the top the header band continues the dark hero; once scrolled, the pill floats over the page. */
+.site-header:not(.is-scrolled) { background: var(--night); }
+.wordmark { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; color: inherit; }
+.brand-mark { flex: none; width: 28px; height: 28px; }
+.brand-drop { fill: var(--water); }
+.brand-shine { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 1.6; stroke-linecap: round; }
+.brand-copy { display: grid; gap: 3px; line-height: 1; }
+.brand-copy b { font: 500 18px/1 var(--serif); letter-spacing: 0.01em; }
+.brand-copy b i { font-style: normal; color: var(--copper); }
+.brand-copy small { font: 500 8.5px/1.2 var(--mono); letter-spacing: 0.18em; color: rgba(242, 239, 230, 0.78); }
+.site-header nav { display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(242, 239, 230, 0.04); }
+.site-header nav a {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border-radius: 999px;
+  font: 500 13.5px/1 var(--sans); text-decoration: none; color: rgba(242, 239, 230, 0.72);
+  transition: color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+.nav-no { font: 500 10px/1 var(--mono); letter-spacing: 0.06em; color: var(--brass); }
+.site-header nav a:hover { color: var(--paper); background: rgba(242, 239, 230, 0.07); }
+.site-header nav a[aria-current="true"] { color: var(--paper); background: rgba(242, 239, 230, 0.12); }
+.nav-toggle {
+  display: none; place-items: center; align-content: center; gap: 5px; width: 44px; height: 44px; padding: 0;
+  border: 1px solid rgba(242, 239, 230, 0.18); border-radius: 50%; background: transparent; cursor: pointer;
+}
+.nav-toggle span { display: block; width: 16px; height: 1.5px; border-radius: 2px; background: var(--paper); transition: transform 0.3s var(--ease); }
+.site-header.is-open .nav-toggle span:first-child { transform: translateY(3.25px) rotate(45deg); }
+.site-header.is-open .nav-toggle span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+.nav-toggle:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; }
+@keyframes urgent-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 107, 82, 0.55); } 100% { box-shadow: 0 0 0 9px rgba(255, 107, 82, 0); } }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+/* Emergency: always reachable from the header, distinct from the main action. */
+.header-urgent {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
+  border-radius: 999px; border: 1px solid rgba(243, 182, 166, 0.55); color: #f6c7ba;
+  font: 600 14px/1 var(--sans); text-decoration: none; transition: background-color 0.25s var(--ease);
+}
+.header-urgent:hover { background: rgba(196, 81, 58, 0.18); }
+.urgent-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #ff6b52; animation: urgent-pulse 1.8s ease-out infinite; }
+.header-action {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px;
+  border-radius: 999px; background: var(--action); color: #fff;
+  font: 600 14px/1 var(--sans); text-decoration: none;
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.header-action:hover { background: var(--action-deep); }
+.header-action:active, .btn-primary:active, .contact-cta:active, .mini-cta:active { transform: scale(0.97); }
+
+/* ---------- chapter counter ---------- */
+.chapter-counter {
+  position: fixed; left: calc(var(--gutter) * 0.5); bottom: 26px; z-index: 30; transition: opacity 0.3s var(--ease);
+  display: grid; justify-items: center; gap: 2px;
+  font: 500 11px/1 var(--mono); letter-spacing: 0.08em;
+  transform: translateX(-50%);
+  mix-blend-mode: difference; color: #cfd8d9;
+  font-variant-numeric: tabular-nums;
+}
+.counter-current { font: 400 22px/1 var(--serif); color: #fff; }
+.counter-sep { opacity: 0.5; }
+
+/* ---------- thread ---------- */
+main { position: relative; }
+.thread {
+  position: absolute; inset: 0; z-index: 5;
+  width: 100%; height: 100%; overflow: visible; pointer-events: none;
+}
+.thread path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.thread-base { stroke: rgba(95, 191, 192, 0.18); stroke-width: 1.5; stroke-dasharray: 2 7; }
+/* The trail is water: a damp halo, a refraction rim, a translucent body and a specular glint.
+   It reads on paper and on night backgrounds alike. */
+.thread-wet { stroke: rgba(20, 70, 76, 0.07); stroke-width: 13; }
+.thread-edge { stroke: rgba(10, 46, 50, 0.2); stroke-width: 5.2; }
+.thread-flow { stroke: rgba(95, 191, 192, 0.44); stroke-width: 3.4; }
+.thread-glint { stroke: rgba(240, 255, 255, 0.85); stroke-width: 1; transform: translate(-0.8px, -0.9px); }
+
+/* ---------- shared type ---------- */
+.eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font: 500 11.5px/1.4 var(--mono); letter-spacing: 0.16em; color: var(--copper-deep);
+}
+.eyebrow-rule { width: 28px; height: 1px; background: currentColor; }
+.ch-number {
+  font: 300 clamp(72px, 11vw, 168px)/0.8 var(--serif); letter-spacing: -0.05em;
+  color: transparent; -webkit-text-stroke: 1px rgba(20, 41, 44, 0.28);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.chapter h2 { font-size: clamp(38px, 5.4vw, 76px); line-height: 1.02; margin-top: 18px; }
+.ch-lead { max-width: 54ch; margin-top: 22px; font-size: clamp(17px, 1.35vw, 19px); color: var(--ink-soft); }
+
+/* ---------- buttons ---------- */
+.btn-primary, .mini-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 26px; border-radius: 999px;
+  background: var(--action); color: #fff; text-decoration: none;
+  font: 600 16px/1 var(--sans);
+  box-shadow: 0 10px 30px -12px rgba(200, 85, 61, 0.7);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.btn-primary:hover, .mini-cta:hover { background: var(--action-deep); box-shadow: 0 14px 34px -12px rgba(200, 85, 61, 0.85); }
+.btn-primary span, .mini-cta span, .header-action span { transition: transform 0.25s var(--ease); }
+.btn-primary:hover span, .mini-cta:hover span, .header-action:hover span { transform: translate(2px, -2px); }
+.mini-cta { min-height: 46px; padding: 0 20px; font-size: 15px; box-shadow: none; background: transparent; color: var(--action-deep); border: 1px solid rgba(200, 85, 61, 0.5); }
+.mini-cta:hover { background: var(--action); color: #fff; box-shadow: none; }
+.mini-cta-dark { color: #f3b6a6; border-color: rgba(243, 182, 166, 0.45); }
+.btn-thread {
+  display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 6px;
+  color: var(--paper); text-decoration: none; font: 500 15px/1 var(--sans);
+}
+.btn-thread:hover { color: var(--water); }
+.thread-orb {
+  position: relative; width: 14px; height: 18px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(circle at 35% 35%, #c9f1f1, var(--water) 55%, var(--water-deep));
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); align-items: center; gap: clamp(24px, 4vw, 64px);
+  min-height: calc(100svh - var(--header-h) - 28px);
+  padding: clamp(40px, 6vw, 88px) var(--gutter) clamp(56px, 7vw, 104px);
+  background:
+    radial-gradient(60% 70% at 78% 45%, rgba(47, 143, 146, 0.32), transparent 70%),
+    linear-gradient(180deg, var(--night) 0%, #0c1e21 100%);
+  color: var(--paper);
+  isolation: isolate;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.07; pointer-events: none;
+  background-image: linear-gradient(rgba(242, 239, 230, 0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(242, 239, 230, 0.6) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(70% 80% at 30% 40%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(70% 80% at 30% 40%, #000 20%, transparent 75%);
+}
+.hero .eyebrow { color: var(--brass); }
+.hero h1 { margin-top: 26px; font-size: clamp(48px, 7.6vw, 118px); line-height: 0.96; letter-spacing: -0.035em; }
+.hero h1 em { color: var(--water); }
+.hero-intro { max-width: 46ch; margin-top: 28px; font-size: clamp(17px, 1.45vw, 20px); color: rgba(242, 239, 230, 0.78); }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 38px; }
+.hero-media { position: relative; margin: 0; justify-self: center; width: min(100%, 500px, calc((100svh - 200px) * 0.8)); }
+.hero-media picture { display: block; aspect-ratio: 4 / 5; }
+.hero-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  border-radius: 999px 999px 18px 18px;
+  outline: 1px solid rgba(217, 168, 108, 0.35); outline-offset: 10px;
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.75);
+}
+/* The faucet drips: sprites cut from the two OpenArt stills, laid exactly where they were on the
+   1344×1680 master (same 4:5 frame, no crop). Drop x 573 y 523 w 152; crown x 470 y 1236 w 400;
+   ripple x 260 y 1418 w 800; the water is at x 655 y 1490. */
+.drip { position: absolute; inset: 0 0 auto; aspect-ratio: 4 / 5; pointer-events: none; overflow: hidden; border-radius: 999px 999px 18px 18px; }
+.hero-media .drip img { position: absolute; height: auto; object-fit: fill; border-radius: 0; outline: none; box-shadow: none; will-change: transform, opacity; }
+.hero-media .drip-drop { left: 42.634%; top: 31.131%; width: 11.310%; transform-origin: 50% 2.5%; }
+.hero-media .drip-crown { left: 34.970%; top: 73.571%; width: 29.762%; transform-origin: 46.25% 100%; opacity: 0; }
+.hero-media .drip-ripple { left: 19.345%; top: 84.405%; width: 59.524%; transform-origin: 49.4% 45%; opacity: 0; }
+.hero-media figcaption { text-align: right; padding: 0 4% 0 54%; } /* clear of the trail leaving the ripple */
+.hero-media figcaption, .signe-media figcaption, .contact-media figcaption {
+  margin-top: 10px; font: 500 9.5px/1.4 var(--mono); letter-spacing: 0.14em; opacity: 0.55;
+}
+.signe-media figcaption, .contact-media figcaption { text-align: center; }
+
+/* ---------- 01 le signe ---------- */
+.chapter { position: relative; padding: clamp(80px, 11vw, 168px) var(--gutter); }
+.ch-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 3vw, 48px); align-items: start; max-width: var(--max); margin: 0 auto; }
+.ch-signe { background: var(--paper); }
+.signe-body {
+  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 88px); align-items: start;
+  max-width: var(--max); margin: clamp(48px, 6vw, 88px) auto 0;
+}
+.signe-media { margin: 0; position: sticky; top: calc(var(--header-h) + 32px); }
+.signe-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 200px 200px 14px 14px; outline: 1px solid rgba(0, 0, 0, 0.06); outline-offset: -1px; }
+.situation-list { display: grid; border-top: 1px solid var(--line-light); }
+.situation {
+  display: grid; grid-template-columns: 56px minmax(0, 1fr) 24px; align-items: center; gap: 12px;
+  width: 100%; min-height: 84px; padding: 18px 8px 18px 0;
+  background: transparent; border: 0; border-bottom: 1px solid var(--line-light); text-align: left; cursor: pointer;
+  transition: background-color 0.3s var(--ease), padding 0.3s var(--ease);
+}
+.situation::after {
+  content: ""; width: 12px; height: 12px; justify-self: end; border-radius: 50%;
+  border: 1px solid rgba(20, 41, 44, 0.3); transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.situation:hover { background: rgba(20, 41, 44, 0.03); }
+.situation[aria-pressed="true"] { padding-left: 14px; background: linear-gradient(90deg, rgba(95, 191, 192, 0.14), transparent 80%); }
+.situation[aria-pressed="true"]::after { background: var(--water-deep); border-color: var(--water-deep); transform: scale(1.15); }
+.situation-no { font: 500 12px/1 var(--mono); letter-spacing: 0.1em; color: var(--copper-deep); }
+.situation-copy { display: grid; gap: 4px; }
+.situation-copy b { font: 400 clamp(21px, 2vw, 27px)/1.15 var(--serif); letter-spacing: -0.01em; }
+.situation-copy small { font: 500 12px/1.4 var(--mono); letter-spacing: 0.04em; color: var(--ink-soft); }
+.answer {
+  margin-top: 28px; padding: clamp(22px, 2.6vw, 34px);
+  border-radius: 14px; background: var(--night); color: var(--paper);
+  box-shadow: 0 30px 60px -40px rgba(15, 36, 39, 0.8);
+}
+.answer-kicker, .room-kicker, .contact-card-title { font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.16em; color: var(--brass); }
+.answer h3 { margin-top: 12px; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; }
+.answer p:last-child { margin-top: 12px; color: rgba(242, 239, 230, 0.78); max-width: 52ch; }
+.answer.is-swapping h3, .answer.is-swapping p { animation: swap-in 0.45s var(--ease); }
+@keyframes swap-in { from { opacity: 0; transform: translateY(6px); } }
+.signe-choices .mini-cta { margin-top: 26px; }
+
+/* ---------- 02 le réseau ---------- */
+.ch-reseau {
+  background:
+    linear-gradient(rgba(20, 41, 44, 0.05) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(20, 41, 44, 0.05) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--plan);
+  padding-block: 0;
+  z-index: 6; /* the thread runs behind: inside the house, the network takes over */
+}
+.reseau-pin {
+  display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: clamp(24px, 4vw, 72px); align-items: center;
+  max-width: var(--max); min-height: 100svh; margin: 0 auto;
+  padding: calc(var(--header-h) + 28px) 0 32px;
+}
+.reseau-copy .ch-number { font-size: clamp(56px, 6vw, 88px); }
+.reseau-copy h2 { margin-top: 12px; }
+.reseau-copy h2 { font-size: clamp(36px, 4.6vw, 66px); }
+.reseau-steps { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 4px; counter-reset: step; }
+.reseau-step {
+  position: relative; padding: 8px 0 8px 34px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.5;
+  opacity: 0.5; transition: opacity 0.4s var(--ease);
+}
+.reseau-step::before {
+  counter-increment: step; content: "0" counter(step);
+  position: absolute; left: 0; top: 12px; font: 500 11px/1 var(--mono); color: var(--copper-deep);
+}
+.reseau-step b { display: block; color: var(--ink); font-weight: 600; }
+.reseau-step.is-active { opacity: 1; }
+.rooms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.room {
+  min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(20, 41, 44, 0.2);
+  font: 500 14px/1 var(--sans);
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.room:hover { border-color: var(--ink); }
+.room[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.room-info { margin-top: 18px; padding: 18px 20px; border-left: 2px solid var(--copper); background: rgba(255, 255, 255, 0.55); border-radius: 0 10px 10px 0; min-height: 96px; }
+@media (min-width: 900px) and (max-height: 820px) {
+  .reseau-copy .ch-number { display: none; }
+  .reseau-copy h2 { font-size: clamp(32px, 3.6vw, 52px); }
+}
+.room-kicker { color: var(--copper-deep); }
+#room-copy { margin-top: 8px; font-size: 15.5px; }
+.reseau-stage { position: relative; }
+/* Left-aligned in the left two thirds: the right of the stage is the lane where the water leaves the house. */
+.stage-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: flex-start; max-width: 66%; margin-top: 10px; padding-left: 4%; font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--ink-soft); }
+.legend-cold::before, .legend-hot::before { content: ""; display: inline-block; width: 18px; height: 3px; margin-right: 8px; vertical-align: middle; border-radius: 2px; background: var(--water-deep); }
+.legend-hot::before { background: var(--copper); }
+
+/* house: two OpenArt stills with the same camera (cutaway below, façade above), markers and
+   labels in HTML so they stay readable at every width. Positions are % of the 1680×1344 frame. */
+.house { position: relative; width: 100%; aspect-ratio: 5 / 4; }
+.house picture, .house picture img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.house picture img { object-fit: contain; }
+/* The stills sit on a light grey close to the page's plan: fade their edges so no photo rectangle
+   shows around the house. */
+.house picture {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent), linear-gradient(to bottom, transparent, #000 13%, #000 87%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent), linear-gradient(to bottom, transparent, #000 13%, #000 87%, transparent);
+  mask-composite: intersect;
+}
+/* The water thread inside the house: it enters at the meter, follows the network, then leaves toward 03.
+   Same water look as the page thread; drawn by the pinned timeline, fully drawn by default. */
+.house-flow { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.house-flow path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: calc(var(--len, 0) * 1px) calc(var(--len, 0) * 1px); stroke-dashoffset: calc(var(--hf, 0) * var(--len, 0) * 1px); }
+.hf-wet { stroke: rgba(20, 70, 76, 0.1); stroke-width: 13; }
+.hf-edge { stroke: rgba(10, 46, 50, 0.24); stroke-width: 5.2; }
+.hf-flow { stroke: rgba(95, 191, 192, 0.7); stroke-width: 3.4; }
+.hf-glint { stroke: rgba(240, 255, 255, 0.9); stroke-width: 1; }
+.house.is-revealed .hf-g { --hf: 0 !important; }
+/* The water runs in the house's own pipes: two masks cut from the cutaway (blue cold-water pipes, copper
+   hot-water pipes) light up from the street pipe outward (--ef), then from the water heater (--ec).
+   Fully lit by default: no JS, reduced motion and a picked room all show the whole network. */
+.pipe-glow { position: absolute; inset: 0; pointer-events: none; --ef: 1; --ec: 1; filter: drop-shadow(0 0 2px rgba(190, 250, 250, 0.9)) drop-shadow(0 0 7px rgba(95, 191, 192, 0.55)); }
+.pipe-glow i { position: absolute; inset: 0; -webkit-mask: url("assets/d1/maison-tubes-ef.webp") 0 0 / 100% 100% no-repeat; mask: url("assets/d1/maison-tubes-ef.webp") 0 0 / 100% 100% no-repeat; }
+.pipe-glow .pg-ef { background: radial-gradient(circle farthest-corner at 14% 72%, rgba(214, 255, 255, 0.95) calc(var(--ef) * 100% - 7%), rgba(120, 225, 228, 0.9) calc(var(--ef) * 100% - 2%), transparent calc(var(--ef) * 100%)); }
+.pipe-glow .pg-ec { -webkit-mask-image: url("assets/d1/maison-tubes-ec.webp"); mask-image: url("assets/d1/maison-tubes-ec.webp"); background: radial-gradient(circle farthest-corner at 50% 31%, rgba(255, 226, 196, 0.95) calc(var(--ec) * 100% - 7%), rgba(240, 160, 110, 0.9) calc(var(--ec) * 100% - 2%), transparent calc(var(--ec) * 100%)); }
+.house.is-revealed .pipe-glow { --ef: 1 !important; --ec: 1 !important; }
+@media (max-width: 899px) { .pipe-glow { filter: drop-shadow(0 0 2px rgba(214, 255, 255, 1)) drop-shadow(0 0 6px rgba(95, 191, 192, 0.9)); } }
+.marker { position: absolute; left: var(--x); top: var(--y); width: 34px; height: 34px; margin: -17px 0 0 -17px; display: grid; place-items: center; cursor: pointer; }
+.marker-halo { position: absolute; inset: 0; border-radius: 50%; background: rgba(200, 85, 61, 0.16); border: 1px solid rgba(200, 85, 61, 0.55); }
+.marker-dot { position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--action); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(15, 36, 39, 0.35); }
+.marker.is-on .marker-halo { background: rgba(200, 85, 61, 0.3); animation: halo 1.8s var(--ease) infinite; }
+@keyframes halo { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
+
+/* Revealed (final) state is the default: no JS, mobile and reduced motion all get it. */
+.h-facade { opacity: 0; pointer-events: none; }
+.js-motion .house .h-facade { opacity: 1; }
+
+/* ---------- 03 le geste ---------- */
+.ch-geste { background: var(--night); color: var(--paper); overflow: hidden; isolation: isolate; }
+.geste-band { position: absolute; inset: 0; z-index: -1; }
+.geste-band img { width: 100%; height: 100%; object-fit: cover; opacity: 0.34; }
+.geste-band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, var(--night) 22%, rgba(15, 36, 39, 0.82) 55%, rgba(15, 36, 39, 0.55)); }
+.geste-inner { max-width: var(--max); margin: 0 auto; }
+.ch-geste .eyebrow { color: var(--brass); }
+.ch-geste .ch-number { -webkit-text-stroke-color: rgba(242, 239, 230, 0.3); }
+.ch-geste h2 em { color: var(--brass); }
+.ch-geste .ch-lead { color: rgba(242, 239, 230, 0.76); }
+.method {
+  position: relative; list-style: none; margin: clamp(56px, 7vw, 96px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 48px);
+}
+.method::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: rgba(242, 239, 230, 0.2); }
+.method-step { position: relative; padding-top: 40px; }
+.method-node { position: absolute; left: 0; top: 0; width: 15px; height: 15px; border-radius: 50%; background: var(--night); border: 1.5px solid var(--brass); }
+.method-step.is-lit .method-node { background: var(--brass); box-shadow: 0 0 0 6px rgba(217, 168, 108, 0.16); }
+.method-node { transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.method-no { font: 500 11.5px/1 var(--mono); letter-spacing: 0.12em; color: var(--brass); }
+.method-step h3 { margin-top: 14px; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.12; }
+.method-step p { margin-top: 12px; color: rgba(242, 239, 230, 0.74); max-width: 34ch; }
+.ch-geste .mini-cta { margin-top: clamp(40px, 5vw, 64px); }
+
+/* ---------- 04 contact ---------- */
+.ch-contact {
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(28px, 6vw, 104px); align-items: center;
+  max-width: calc(var(--max) + 2 * var(--gutter)); margin: 0 auto;
+}
+.contact-media { margin: 0; align-self: start; position: sticky; top: calc(var(--header-h) + 32px); } /* follows the tall form: no empty column */
+.contact-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px 14px 200px 200px; outline: 1px solid rgba(0, 0, 0, 0.06); outline-offset: -1px; }
+.contact-card { margin-top: 34px; padding: clamp(22px, 2.6vw, 34px); border: 1px solid var(--line-light); border-radius: 16px; background: #fbf9f3; box-shadow: 0 30px 70px -50px rgba(15, 36, 39, 0.6); }
+.contact-card-title { color: var(--copper-deep); }
+.contact-fields { margin: 16px 0 0; display: grid; }
+.contact-fields div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line-light); }
+.contact-fields dt { font-weight: 600; }
+.contact-fields dd { margin: 0; color: var(--ink-soft); font: 500 13px/1.6 var(--mono); text-align: right; }
+.contact-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  margin-top: 22px; min-height: 64px; padding: 0 12px 0 26px; border-radius: 999px;
+  background: var(--action); color: #fff; text-decoration: none; font: 600 18px/1 var(--sans);
+  box-shadow: 0 14px 34px -14px rgba(200, 85, 61, 0.8);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.contact-cta b { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); font-weight: 500; transition: transform 0.25s var(--ease); }
+.contact-cta:hover { background: var(--action-deep); }
+.contact-cta:hover b { transform: rotate(45deg); }
+/* Demo form: real labels, inline errors, an explicit "nothing is sent" status. */
+.demo-form { margin-top: 22px; display: grid; gap: 14px; }
+.demo-form-note { font: 500 11px/1.5 var(--mono); letter-spacing: 0.06em; color: var(--copper-deep); }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.field label { font-weight: 600; font-size: 15px; color: var(--ink); }
+.field-opt { font-weight: 400; color: var(--ink-soft); }
+.field input, .field textarea {
+  width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid rgba(20, 41, 44, 0.28); border-radius: 10px;
+  background: #fff; color: var(--ink); font: 400 16px/1.4 var(--sans); resize: vertical;
+}
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--water-deep); outline-offset: 2px; border-color: var(--water-deep); }
+/* Error state: the field, its label and its focus ring turn red; the message carries an icon. */
+.field [aria-invalid="true"] { border-color: var(--action-deep); border-width: 1.5px; background: #fff6f3; }
+.field [aria-invalid="true"]:focus-visible { outline-color: var(--action-deep); border-color: var(--action-deep); }
+.field:has([aria-invalid="true"]) label { color: var(--action-deep); }
+.field-error { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 1.45; color: var(--action-deep); }
+.field-error[hidden], .form-summary[hidden] { display: none; }
+.field-error::before {
+  content: "!"; flex: none; display: grid; place-items: center; width: 18px; height: 18px; margin-top: 1px;
+  border-radius: 50%; background: var(--action-deep); color: #fff; font: 700 11px/1 var(--sans);
+}
+.form-summary { padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(168, 67, 46, 0.45); border-left: 4px solid var(--action-deep); background: #fff4f0; color: var(--ink); font-size: 15px; }
+.form-summary ul { margin: 6px 0 0; padding-left: 18px; }
+.form-summary a { color: var(--action-deep); font-weight: 600; text-underline-offset: 3px; }
+.form-summary a:focus-visible { outline: 2px solid var(--action-deep); outline-offset: 2px; }
+.demo-form .contact-cta { width: 100%; border: 0; cursor: pointer; margin-top: 4px; }
+.demo-form-status:not(:empty) { padding: 12px 14px; border-radius: 10px; background: rgba(47, 143, 146, 0.12); color: var(--ink); font-size: 15px; }
+.legal { margin: 0; flex-basis: 100%; opacity: 0.8; }
+
+/* ---------- chapter 02: selection state + HUD labels ---------- */
+.house.has-selection .marker:not(.is-on) { opacity: 0.38; }
+.marker-dot { transition: transform 0.35s var(--ease), background-color 0.35s var(--ease); }
+.marker.is-on .marker-dot { transform: scale(1.5); background: var(--ink); border-color: var(--action); }
+.hud {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, calc(-100% - 22px));
+  padding: 5px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none;
+  background: rgba(15, 36, 39, 0.9); color: #e6ecee; font: 500 11px/1.25 var(--mono); letter-spacing: 0.06em;
+  transition: opacity 0.35s var(--ease), background-color 0.35s var(--ease);
+}
+.hud[data-align="start"] { transform: translate(-14px, calc(-100% - 22px)); }
+/* The two networks are named on the picture itself: colour is never the only cue. */
+.pipe-tag {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); pointer-events: none;
+  padding: 4px 8px 4px 7px; border-radius: 4px; border-left: 3px solid var(--water-deep);
+  background: rgba(255, 255, 255, 0.94); color: var(--ink); font: 500 11px/1.2 var(--mono); letter-spacing: 0.08em; white-space: nowrap;
+  box-shadow: 0 4px 12px -6px rgba(15, 36, 39, 0.45);
+}
+.pipe-hot { border-left-color: var(--copper); }
+/* Picking a room always shows the cutaway (click or keyboard), even before the reveal reaches it. */
+.house.is-revealed .h-facade { opacity: 0 !important; transition: opacity 0.5s var(--ease); }
+.pipe-chip { padding: 3px 6px 3px 5px; font-size: 11px; letter-spacing: 0.06em; }
+.house.has-selection .hud:not(.is-on) { opacity: 1 !important; background: rgba(255, 255, 255, 0.94); color: var(--ink); box-shadow: 0 0 0 1px var(--line-light); }
+.hud.is-on { background: var(--action); color: #fff; }
+/* Small screens: only the picked room is labelled, so labels never overlap or shrink. */
+@media (max-width: 599px) { .hud:not(.is-on) { display: none; } }
+/* Small screens: the long hot-water label moves right so the kitchen EF chip never covers it. */
+@media (max-width: 599px) { .pipe-tag.pipe-hot-main { --x: 44% !important; --y: 48% !important; } }
+/* What the visitor picked is always shown, even before the reveal animation reaches it. */
+.hud.is-on, .marker.is-on { opacity: 1 !important; }
+.reseau-cta { margin-top: 16px; }
+
+/* ---------- designed focus states ---------- */
+.btn-primary:focus-visible, .mini-cta:focus-visible, .contact-cta:focus-visible, .header-action:focus-visible, .mobile-contact:focus-visible {
+  outline: 2px solid var(--water); outline-offset: 4px; box-shadow: 0 0 0 7px rgba(95, 191, 192, 0.22);
+}
+.situation:focus-visible, .room:focus-visible { outline: 2px solid var(--water-deep); outline-offset: 3px; }
+
+/* The thread reaches the final call to action: it lights up once. */
+.contact-cta { position: relative; z-index: 6; } /* above the end of the water trail */
+/* Emergency block in the contact card. */
+.urgent { margin-top: 18px; padding: 16px 18px; border-radius: 12px; background: rgba(196, 81, 58, 0.07); border: 1px solid rgba(196, 81, 58, 0.35); }
+.urgent-kicker { font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.16em; color: var(--action-deep); }
+.urgent-copy { margin-top: 6px; color: var(--ink); font-size: 15.5px; }
+.urgent-call {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; min-height: 48px; padding: 0 22px;
+  border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 600 16px/1 var(--sans); cursor: pointer;
+}
+.urgent-call:hover { background: #0b1d20; }
+.urgent-call:focus-visible, .header-urgent:focus-visible { outline: 2px solid var(--water-deep); outline-offset: 3px; }
+.urgent-status:not(:empty) { margin-top: 10px; font-size: 14.5px; color: var(--ink-soft); }
+.situation-urgent .situation-no, .situation-urgent b { color: var(--action-deep); }
+.mini-cta.is-urgent { background: var(--action); color: #fff; border-color: var(--action); }
+.contact-cta.is-reached { animation: reached 1.4s var(--ease) 1; }
+.contact-cta.is-reached b { background: var(--water); color: var(--night); box-shadow: 0 0 0 6px rgba(95, 191, 192, 0.28), 0 0 22px rgba(95, 191, 192, 0.6); }
+@keyframes reached { 0% { box-shadow: 0 0 0 0 rgba(95, 191, 192, 0.7); } 100% { box-shadow: 0 0 0 22px rgba(95, 191, 192, 0); } }
+
+/* ---------- footer + mobile bar ---------- */
+/* Footer: a last call to action, then the site map, contact placeholders and legal notes. */
+.site-footer { background: var(--night); color: rgba(242, 239, 230, 0.72); padding: clamp(64px, 8vw, 112px) var(--gutter) 28px; }
+.footer-cta, .footer-grid, .footer-bottom { max-width: var(--max); margin: 0 auto; }
+.footer-cta { display: grid; gap: 22px; padding-bottom: clamp(48px, 6vw, 80px); border-bottom: 1px solid var(--line-dark); }
+.footer-cta .eyebrow { color: var(--brass); }
+.footer-title { max-width: 16ch; font: 400 clamp(38px, 5.4vw, 76px)/1 var(--serif); letter-spacing: -0.025em; color: var(--paper); }
+.footer-title em { color: var(--water); white-space: nowrap; }
+@media (min-width: 900px) {
+  .footer-cta { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: 48px; align-items: end; }
+  .footer-cta .eyebrow, .footer-title { grid-column: 1; }
+  .footer-actions { grid-column: 2; grid-row: 2; justify-self: end; margin-top: 0; }
+}
+.footer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 8px; }
+.footer-urgent {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 999px;
+  border: 1px solid rgba(243, 182, 166, 0.5); color: #f6c7ba; text-decoration: none; font: 600 16px/1 var(--sans);
+  transition: background-color 0.25s var(--ease);
+}
+.footer-urgent:hover { background: rgba(196, 81, 58, 0.18); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: clamp(28px, 4vw, 56px); padding: clamp(40px, 5vw, 64px) 0; }
+.footer-brand .wordmark { color: var(--paper); }
+.footer-brand p { max-width: 34ch; margin-top: 18px; font-size: 15px; line-height: 1.65; }
+.footer-h { margin-bottom: 12px; font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
+.footer-col a { display: flex; align-items: center; min-height: 44px; color: rgba(242, 239, 230, 0.8); text-decoration: none; font-size: 15px; transition: color 0.25s var(--ease); }
+.footer-col a:hover { color: var(--paper); }
+.footer-col > p:not(.footer-h) { font-size: 14px; line-height: 1.6; }
+.footer-col > p + p:not(.footer-h) { margin-top: 10px; }
+.footer-fields { margin: 0; }
+.footer-fields div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px dashed var(--line-dark); font-size: 14.5px; }
+.footer-fields dd { margin: 0; font: 500 12px/1.6 var(--mono); color: rgba(242, 239, 230, 0.6); }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 22px; border-top: 1px solid var(--line-dark); font: 500 11px/1.4 var(--mono); letter-spacing: 0.08em; }
+.back-top {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--line-dark); color: var(--paper); text-decoration: none; transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.back-top:hover { border-color: var(--water); color: var(--water); }
+.site-footer a:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; }
+.mobile-contact { display: none; }
+
+/* ---------- hero entrance (CSS, so it never waits for JS) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * { animation: rise 0.9s var(--ease) both; }
+  .hero h1 { animation-name: rise-solid; } /* stays painted: it is the page's LCP */
+  .hero-copy > :nth-child(2) { animation-delay: 0.08s; }
+  .hero-copy > :nth-child(3) { animation-delay: 0.16s; }
+  .hero-copy > :nth-child(4) { animation-delay: 0.24s; }
+  .hero-media { animation: settle 1.2s var(--ease) both; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } }
+@keyframes rise-solid { from { transform: translateY(22px); } }
+@keyframes settle { from { opacity: 0; transform: scale(0.94); } }
+
+/* ---------- reveal (JS only) ---------- */
+.js-motion .reveal { opacity: 0; transform: translateY(26px); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px) {
+  .nav-toggle { display: inline-grid; }
+  .site-header nav {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0; display: none; flex-direction: column; gap: 2px;
+    padding: 10px; border-radius: 22px; border: 1px solid rgba(242, 239, 230, 0.12);
+    background: var(--night); box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
+  }
+  .site-header.is-open nav { display: flex; }
+  .site-header nav a { min-height: 50px; padding: 0 16px; font-size: 16px; border-radius: 14px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+/* Small screens, motion on: while the house is pinned, the story step reads under it (the steps list
+   itself sits above, out of view). Hidden otherwise: the list already says it. */
+.stage-caption { display: none; }
+@media (max-width: 899px) {
+  .js-motion .stage-caption {
+    display: flex; gap: 12px; align-items: baseline; min-height: 3.2em; margin: 6px 20px 0; padding: 10px 14px;
+    border-left: 2px solid var(--copper); background: rgba(255, 255, 255, 0.72); border-radius: 0 10px 10px 0;
+    font-size: 15px; line-height: 1.45; color: var(--ink-soft);
+  }
+  /* The caption tells the steps while the house is pinned: the list would repeat it right after, so it
+     stays for screen readers only (the caption is aria-hidden). */
+  .js-motion .reseau-steps { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; margin: 0; }
+  .stage-caption > span:first-child { font: 500 11px/1 var(--mono); color: var(--copper-deep); }
+  .stage-caption b { color: var(--ink); font-weight: 600; }
+}
+/* Small screens: the trail runs in the left gutter, so it gets more body and a drop of water at its
+   head that runs down as the visitor scrolls. */
+.thread-drop { display: none; }
+@media (max-width: 899px) {
+  .thread-wet { stroke-width: 12; stroke: rgba(95, 191, 192, 0.12); }
+  .thread-edge, .hf-edge { stroke: rgba(95, 191, 192, 0.22); }
+  .hf-wet { stroke: rgba(95, 191, 192, 0.14); stroke-width: 11; }
+  .thread-drop {
+    display: block; position: absolute; left: 0; top: 0; z-index: 5; width: 10px; height: 14px; margin: -11px 0 0 -5px;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; pointer-events: none; opacity: 0; transition: opacity 0.3s var(--ease);
+    background: radial-gradient(circle at 36% 62%, #e9fdfd 0 12%, #8fe0e0 30%, var(--water) 60%, var(--water-deep));
+    box-shadow: 0 0 0 3px rgba(95, 191, 192, 0.2), 0 0 14px 2px rgba(95, 191, 192, 0.45);
+  }
+  .thread-drop.is-on { opacity: 1; }
+}
+@media (max-width: 899px) {
+  :root { --header-h: 60px; }
+  body { font-size: 16px; }
+  .chapter-counter { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; gap: 8px; }
+  .hero-media { order: -1; width: min(56%, 250px); }
+  .hero-media figcaption { display: none; }
+  .hero h1 { font-size: clamp(40px, 11vw, 56px); }
+  .hero-intro { margin-top: 18px; }
+  .hero h1 { margin-top: 16px; }
+  .hero-actions { margin-top: 28px; }
+  .ch-head { grid-template-columns: 1fr; }
+  .ch-number { font-size: 64px; }
+  .signe-body, .reseau-pin, .ch-contact { grid-template-columns: 1fr; }
+  .signe-media { position: relative; top: 0; }
+  .signe-media img { aspect-ratio: 16 / 11; border-radius: 120px 120px 12px 12px; object-position: 50% 42%; }
+  .reseau-pin { min-height: 0; padding: 80px 0; gap: 0; }
+  .reseau-copy .eyebrow { margin-top: 8px; }
+  .reseau-copy { display: contents; }
+  .reseau-stage { margin: 28px -8px 0; }
+  .reseau-steps, .rooms, .room-info { order: 1; }
+  .method { grid-template-columns: 1fr; gap: 28px; }
+  .method::before { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+  .method-step { padding: 0 0 0 40px; }
+  .contact-media { position: relative; top: 0; }
+  .contact-media img { aspect-ratio: 16 / 11; border-radius: 12px 12px 120px 120px; }
+  .site-footer { padding-bottom: 96px; }
+  .nav-shell { padding: 0 4px 0 12px; }
+  .mobile-contact {
+    position: fixed; left: 16px; right: 16px; bottom: 14px; z-index: 50;
+    display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px;
+    border-radius: 999px; background: var(--action); color: #fff; text-decoration: none; font: 600 16px/1 var(--sans);
+    box-shadow: 0 16px 34px -14px rgba(15, 36, 39, 0.7);
+    transform: translateY(140%); transition: transform 0.4s var(--ease);
+  }
+  .mobile-contact.is-visible { transform: none; }
+  .thread-flow { stroke-width: 3.6; stroke: rgba(95, 191, 192, 0.75); }
+  .thread-edge { stroke-width: 6; }
+  .thread-glint { stroke-width: 1.2; }
+}
+@media (max-width: 599px) {
+  .header-action { display: none; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .demo-bar { font-size: 9.5px; letter-spacing: 0.04em; }
+  .brand-copy small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .mobile-contact { transition: none; }
+}
+
+.chapter-counter.is-hidden { opacity: 0; pointer-events: none; }
+
+/* Tag lists: separators drawn by CSS; on small screens the tags wrap without orphan dots. */
+.tag-list { display: inline-flex; flex-wrap: wrap; }
+.tag-list > span + span::before { content: "·"; margin: 0 0.55em; opacity: 0.7; }
+@media (max-width: 599px) {
+  .tag-list { column-gap: 16px; row-gap: 4px; }
+  .tag-list > span + span::before { content: none; }
+}
+/* Reduced motion: the ripple stays visible, so the trail is born from the water. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-media .drip-ripple { opacity: 0.85; }
+}
+.house.is-revealed .pipe-tag { opacity: 1 !important; }
+.house.is-revealed .house-cut { opacity: 1 !important; }
+
+/* Below the pinned chapter: laid out only as the visitor approaches (lighter first render on mobile). */
+.ch-geste, .ch-contact { content-visibility: auto; contain-intrinsic-size: auto 1000px; }
+</style><!-- /styles-inline -->
+</head>
+<body>
+  <a class="skip-link" href="#signe">Aller au contenu</a>
+  <aside class="demo-bar" aria-label="Avertissement"><span class="live-dot" aria-hidden="true"></span><span>DÉMONSTRATION FICTIVE&nbsp;· PL—06&nbsp;· DONNÉES À REMPLACER AVANT TOUTE UTILISATION CLIENT</span></aside>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="wordmark" href="#top"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="brand-drop" d="M16 2.5c4.9 6.6 9.5 11.7 9.5 17a9.5 9.5 0 0 1-19 0c0-5.3 4.6-10.4 9.5-17Z"/><path class="brand-shine" d="M11.6 19.8a4.6 4.6 0 0 0 4 4.4"/></svg><span class="brand-copy"><b>PL<i>—</i>06</b><small><span class="tag-list"><span>EAU</span><span>RÉSEAU</span><span>HABITAT</span></span></small></span></a>
+      <nav id="site-nav" aria-label="Chapitres"><a href="#signe"><span class="nav-no">01</span>Le signe</a><a href="#reseau"><span class="nav-no">02</span>Le réseau</a><a href="#geste"><span class="nav-no">03</span>Le geste</a><a href="#contact"><span class="nav-no">04</span>On en parle</a></nav>
+      <div class="header-actions">
+        <a class="header-urgent" href="#urgence"><span class="urgent-dot" aria-hidden="true"></span>Urgence</a>
+        <a class="header-action" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="chapter-counter" aria-hidden="true"><span class="counter-current">00</span><span class="counter-sep">/</span><span>04</span></div>
+
+  <main id="top">
+    <svg class="thread" aria-hidden="true" focusable="false"><path class="thread-base"/><path class="thread-wet"/><path class="thread-edge"/><path class="thread-flow"/><path class="thread-glint"/></svg><span class="thread-drop" aria-hidden="true"></span>
+
+    <section class="hero" aria-labelledby="hero-title" data-chapter="0">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-rule"></span> <span class="tag-list"><span>PLOMBERIE</span><span>DÉPANNAGE</span><span>INSTALLATION</span></span></p>
+        <h1 id="hero-title">L’eau laisse toujours <em>une trace.</em></h1>
+        <p class="hero-intro">Une goutte au mauvais endroit, une eau qui ne chauffe plus, une pièce à transformer. Suivez le fil&nbsp;: du premier signe chez vous jusqu’au bon geste du professionnel.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+          <a class="btn-thread" href="#signe"><span class="thread-orb" aria-hidden="true"></span> Suivre le fil</a>
+        </div>
+      </div>
+      <figure class="hero-media" data-thread-anchor="start">
+        <picture>
+          <source type="image/webp" srcset="assets/d1/hero-robinet-plate-480.webp 480w, assets/d1/hero-robinet-plate-960.webp 960w, assets/d1/hero-robinet-plate-1344.webp 1344w" sizes="(min-width: 900px) 44vw, min(56vw, 250px)">
+          <img src="assets/d1/hero-robinet-plate-960.jpg" srcset="assets/d1/hero-robinet-plate-480.jpg 480w, assets/d1/hero-robinet-plate-960.jpg 960w, assets/d1/hero-robinet-plate-1344.jpg 1344w" sizes="(min-width: 900px) 44vw, min(56vw, 250px)" width="1344" height="1680" alt="Une goutte d’eau se forme au bec d’un robinet en cuivre et tombe, sur fond bleu nuit." fetchpriority="high" decoding="async">
+        </picture>
+        <span class="drip" aria-hidden="true"><img class="drip-drop" src="assets/d1/goutte-robinet.webp" alt="" width="152" height="159"><img class="drip-crown" src="assets/d1/eclaboussure-couronne.webp" alt="" width="400" height="254" fetchpriority="low" decoding="async"><img class="drip-ripple" src="assets/d1/eclaboussure-onde.webp" alt="" width="800" height="160" fetchpriority="low" decoding="async"></span>
+        <figcaption>ILLUSTRATION DE STUDIO GÉNÉRÉE&nbsp;· DÉMO</figcaption>
+      </figure>
+    </section>
+
+    <section class="chapter ch-signe" id="signe" aria-labelledby="signe-title" data-chapter="1">
+      <header class="ch-head">
+        <p class="ch-number" aria-hidden="true">01</p>
+        <div>
+          <p class="eyebrow"><span class="eyebrow-rule"></span> LE SIGNE</p>
+          <h2 id="signe-title">Tout commence <em>par un signe.</em></h2>
+          <p class="ch-lead">Vous n’avez pas besoin de connaître le vocabulaire du métier. Dites ce que vous observez&nbsp;: le fil s’oriente vers la bonne partie de la maison.</p>
+        </div>
+      </header>
+      <div class="signe-body">
+        <figure class="signe-media">
+          <picture>
+            <source type="image/webp" srcset="assets/d1/signe-evier-480.webp 480w, assets/d1/signe-evier-960.webp 960w, assets/d1/signe-evier-1344.webp 1344w" sizes="(min-width: 900px) 34vw, 92vw">
+            <img src="assets/d1/signe-evier-960.jpg" srcset="assets/d1/signe-evier-480.jpg 480w, assets/d1/signe-evier-960.jpg 960w, assets/d1/signe-evier-1344.jpg 1344w" sizes="(min-width: 900px) 34vw, 92vw" width="1344" height="1680" alt="Sous un évier, une goutte perle à un raccord en laiton entre deux tubes de cuivre ; une auréole d’humidité marque le fond du meuble." loading="lazy" decoding="async">
+          </picture>
+          <figcaption>ILLUSTRATION DE STUDIO GÉNÉRÉE&nbsp;· DÉMO</figcaption>
+        </figure>
+        <div class="signe-choices" data-thread-anchor="signe">
+          <div class="situation-list" role="group" aria-label="Choisir le signe observé">
+            <button class="situation" type="button" data-kind="leak" aria-pressed="true"><span class="situation-no">01</span><span class="situation-copy"><b>Une fuite, quelque part</b><small><span class="tag-list"><span>Goutte</span><span>humidité</span><span>écoulement</span></span></small></span></button>
+            <button class="situation" type="button" data-kind="hot" aria-pressed="false"><span class="situation-no">02</span><span class="situation-copy"><b>L’eau ne chauffe plus</b><small><span class="tag-list"><span>Chauffe-eau</span><span>température</span><span>débit</span></span></small></span></button>
+            <button class="situation" type="button" data-kind="project" aria-pressed="false"><span class="situation-no">03</span><span class="situation-copy"><b>Une pièce à transformer</b><small><span class="tag-list"><span>Cuisine</span><span>salle d’eau</span><span>rénovation</span></span></small></span></button>
+            <button class="situation situation-urgent" type="button" data-kind="urgent" aria-pressed="false"><span class="situation-no">04</span><span class="situation-copy"><b>Une urgence, maintenant</b><small><span class="tag-list"><span>Fuite importante</span><span>dégât des eaux</span><span>plus d’eau</span></span></small></span></button>
+          </div>
+          <div class="answer" aria-live="polite">
+            <p class="answer-kicker" id="answer-kicker">CE QUE VOUS POUVEZ DÉCRIRE</p>
+            <h3 id="answer-title">Où l’eau apparaît-elle&nbsp;?</h3>
+            <p id="answer-copy">Le lieu, depuis quand, et si la trace revient. Ces repères aident l’artisan à préparer son passage&nbsp;; ils ne remplacent pas sa vérification sur place.</p>
+          </div>
+          <a class="mini-cta signe-cta" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter ch-reseau" id="reseau" aria-labelledby="reseau-title" data-chapter="2">
+      <div class="reseau-pin">
+        <div class="reseau-copy">
+          <p class="ch-number" aria-hidden="true">02</p>
+          <p class="eyebrow"><span class="eyebrow-rule"></span> LE RÉSEAU</p>
+          <h2 id="reseau-title">Derrière les murs, <em>le chemin de l’eau.</em></h2>
+          <ol class="reseau-steps">
+            <li class="reseau-step is-active" data-step="0"><b>La maison telle que vous la voyez.</b> Façade, pièces, équipements&nbsp;: tout semble calme.</li>
+            <li class="reseau-step" data-step="1"><b>Les murs s’effacent.</b> L’eau froide arrive au compteur et se partage entre la cuisine, le chauffe-eau et la salle d’eau.</li>
+            <li class="reseau-step" data-step="2"><b>Pièce par pièce.</b> Touchez une pièce pour voir ce que l’artisan vérifie quand il intervient.</li>
+          </ol>
+          <div class="rooms" role="group" aria-label="Choisir une pièce">
+            <button class="room" type="button" data-room="arrivee" aria-pressed="false">Arrivée d’eau</button>
+            <button class="room" type="button" data-room="cuisine" aria-pressed="false">Cuisine</button>
+            <button class="room" type="button" data-room="chauffe-eau" aria-pressed="false">Chauffe-eau</button>
+            <button class="room" type="button" data-room="salle-d-eau" aria-pressed="false">Salle d’eau</button>
+          </div>
+          <div class="room-info" aria-live="polite">
+            <p class="room-kicker">CE QUE L’ARTISAN VÉRIFIE</p>
+            <p id="room-copy">Choisissez une pièce. Les points vérifiés sont indicatifs&nbsp;: le diagnostic se fait toujours sur place.</p>
+          </div>
+          <a class="mini-cta reseau-cta" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="reseau-stage" data-thread-anchor="reseau">
+          <div class="house" role="img" aria-labelledby="house-title house-desc"><span id="house-title" hidden>Maison en coupe : le réseau d’eau derrière les murs</span><span id="house-desc" hidden>Illustration générée et indicative. L’eau froide, en tubes bleus, part du compteur vers la cuisine, le chauffe-eau et la salle d’eau ; l’eau chaude, en tubes de cuivre, part du chauffe-eau vers l’évier, la douche et le lavabo. Ce n’est pas le plan d’un logement réel.</span><picture class="house-cut"><source type="image/webp" srcset="assets/d1/maison-coupe-840.webp 840w, assets/d1/maison-coupe-1680.webp 1680w" sizes="(min-width: 900px) 56vw, 100vw"><img src="assets/d1/maison-coupe-840.jpg" srcset="assets/d1/maison-coupe-840.jpg 840w, assets/d1/maison-coupe-1680.jpg 1680w" sizes="(min-width: 900px) 56vw, 100vw" width="1680" height="1344" alt="" loading="lazy" decoding="async"></picture><picture class="h-facade"><source type="image/webp" srcset="assets/d1/maison-facade-840.webp 840w, assets/d1/maison-facade-1680.webp 1680w" sizes="(min-width: 900px) 56vw, 100vw"><img src="assets/d1/maison-facade-840.jpg" srcset="assets/d1/maison-facade-840.jpg 840w, assets/d1/maison-facade-1680.jpg 1680w" sizes="(min-width: 900px) 56vw, 100vw" width="1680" height="1344" alt="" loading="lazy" decoding="async"></picture><div class="pipe-glow" aria-hidden="true"><i class="pg-ef"></i><i class="pg-ec"></i></div><svg class="house-flow" aria-hidden="true" focusable="false"><g class="hf-g" data-seg="trunk"><path class="hf-wet"/><path class="hf-edge"/><path class="hf-flow"/><path class="hf-glint"/></g><g class="hf-g" data-seg="tail"><path class="hf-wet"/><path class="hf-edge"/><path class="hf-flow"/><path class="hf-glint"/></g></svg><span class="marker" data-room="arrivee" style="--x:23.2%;--y:68.5%"><span class="marker-halo"></span><span class="marker-dot"></span></span><span class="marker" data-room="cuisine" style="--x:27.1%;--y:33.9%"><span class="marker-halo"></span><span class="marker-dot"></span></span><span class="marker" data-room="chauffe-eau" style="--x:49.4%;--y:29.8%"><span class="marker-halo"></span><span class="marker-dot"></span></span><span class="marker" data-room="salle-d-eau" style="--x:68.5%;--y:29.8%"><span class="marker-halo"></span><span class="marker-dot"></span></span><span class="pipe-tag pipe-cold" style="--x:17.3%;--y:56.5%">EAU FROIDE</span><span class="pipe-tag pipe-hot pipe-hot-main" style="--x:37%;--y:38.6%">EAU CHAUDE</span><span class="pipe-tag pipe-chip pipe-cold" style="--x:60.8%;--y:29.2%">EF</span><span class="pipe-tag pipe-chip pipe-cold" style="--x:26.5%;--y:40.2%">EF</span><span class="pipe-tag pipe-chip pipe-hot" style="--x:62.5%;--y:22.3%">EC</span><span class="pipe-tag pipe-chip pipe-hot" style="--x:72%;--y:35%">EC</span><span class="hud" data-room="arrivee" data-align="start" style="--x:23.2%;--y:68.5%">ARRIVÉE&nbsp;· COMPTEUR</span><span class="hud" data-room="cuisine" data-align="center" style="--x:27.1%;--y:33.9%">ÉVIER&nbsp;· EF + EC</span><span class="hud" data-room="chauffe-eau" data-align="center" style="--x:49.4%;--y:29.8%">BALLON&nbsp;· ≈ 55 °C</span><span class="hud" data-room="salle-d-eau" data-align="start" style="--x:68.5%;--y:29.8%">DOUCHE&nbsp;· LAVABO</span></div>
+          <p class="stage-caption" aria-hidden="true"></p><p class="stage-legend"><span class="legend-cold">Eau froide&nbsp;· tubes bleus</span><span class="legend-hot">Eau chaude&nbsp;· tubes cuivre</span><span>Illustration générée&nbsp;· indicative</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter ch-geste" id="geste" aria-labelledby="geste-title" data-chapter="3">
+      <div class="geste-band" aria-hidden="true">
+        <picture>
+          <source type="image/webp" srcset="assets/d1/geste-texture-960.webp 960w, assets/d1/geste-texture-1920.webp 1920w, assets/d1/geste-texture-2880.webp 2880w" sizes="100vw">
+          <img src="assets/d1/geste-texture-960.jpg" srcset="assets/d1/geste-texture-960.jpg 960w, assets/d1/geste-texture-1920.jpg 1920w, assets/d1/geste-texture-2880.jpg 2880w" sizes="100vw" width="2880" height="1620" alt="" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="geste-inner">
+        <header class="ch-head">
+          <p class="ch-number" aria-hidden="true">03</p>
+          <div>
+            <p class="eyebrow"><span class="eyebrow-rule"></span> LE GESTE JUSTE</p>
+            <h2 id="geste-title">Comprendre. Se parler. <em>Agir juste.</em></h2>
+            <p class="ch-lead">Le savoir-faire se joue sur place. Avant cela, quelques mots suffisent pour que l’artisan arrive préparé.</p>
+          </div>
+        </header>
+        <ol class="method" data-thread-anchor="geste">
+          <li class="method-step"><span class="method-node" aria-hidden="true"></span><span class="method-no">01</span><h3>Vous décrivez le signe</h3><p>Un détail, un bruit, une pièce&nbsp;: quelques mots suffisent pour commencer.</p></li>
+          <li class="method-step"><span class="method-node" aria-hidden="true"></span><span class="method-no">02</span><h3>L’artisan écoute et vérifie</h3><p>Il précise le besoin avec vous. La situation se vérifie sur place si nécessaire.</p></li>
+          <li class="method-step"><span class="method-node" aria-hidden="true"></span><span class="method-no">03</span><h3>La suite se décide ensemble</h3><p>Intervention, devis ou rendez-vous&nbsp;: la proposition dépend du cas réel.</p></li>
+        </ol>
+        <a class="mini-cta mini-cta-dark" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="chapter ch-contact" id="contact" aria-labelledby="contact-title" data-chapter="4">
+      <div class="contact-media">
+        <picture>
+            <source type="image/webp" srcset="assets/d1/contact-installation-480.webp 480w, assets/d1/contact-installation-960.webp 960w, assets/d1/contact-installation-1344.webp 1344w" sizes="(min-width: 900px) 36vw, 92vw">
+            <img src="assets/d1/contact-installation-960.jpg" srcset="assets/d1/contact-installation-480.jpg 480w, assets/d1/contact-installation-960.jpg 960w, assets/d1/contact-installation-1344.jpg 1344w" sizes="(min-width: 900px) 36vw, 92vw" width="1344" height="1680" alt="Une installation en cuivre neuve fixée sur un mur clair, avec une vanne d’arrêt à poignée rouge." loading="lazy" decoding="async">
+          </picture>
+        <figcaption>ILLUSTRATION DE STUDIO GÉNÉRÉE&nbsp;· DÉMO</figcaption>
+      </div>
+      <div class="contact-copy">
+        <p class="ch-number" aria-hidden="true">04</p>
+        <p class="eyebrow"><span class="eyebrow-rule"></span> ON EN PARLE</p>
+        <h2 id="contact-title">Le premier geste est <em>une conversation.</em></h2>
+        <p class="ch-lead">Démonstration fictive&nbsp;: le téléphone, la zone d’intervention et les modalités de réponse seront configurés avec l’artisan avant toute mise en ligne.</p>
+        <div class="contact-card">
+          <p class="contact-card-title">FICHE CONTACT&nbsp;· DÉMO À CONFIGURER</p>
+          <dl class="contact-fields">
+            <div><dt>Téléphone</dt><dd>À configurer avec l’artisan</dd></div>
+            <div><dt>Zone d’intervention</dt><dd>À définir</dd></div>
+            <div><dt>Délai de réponse</dt><dd>À confirmer</dd></div>
+            <div><dt>Urgence et astreinte</dt><dd>À configurer</dd></div>
+          </dl>
+          <div class="urgent" id="urgence">
+            <p class="urgent-kicker">URGENCE&nbsp;· DÉGÂT DES EAUX</p>
+            <p class="urgent-copy">Coupez l’eau à la vanne près du compteur, puis appelez&nbsp;: l’artisan vous guide au téléphone.</p>
+            <button class="urgent-call" type="button">Appeler en urgence <span aria-hidden="true">☎</span></button>
+            <p class="urgent-status" role="status" aria-live="polite"></p>
+          </div>
+          <form class="demo-form" id="demo-form" novalidate aria-describedby="demo-form-note">
+            <p class="demo-form-note" id="demo-form-note">Formulaire de démonstration&nbsp;: rien n’est envoyé ni enregistré.</p>
+            <div class="form-summary" role="alert" hidden></div>
+            <div class="field">
+              <label for="f-signe">Ce que vous observez</label>
+              <textarea id="f-signe" name="signe" rows="3" required aria-describedby="f-signe-err" placeholder="Ex.&nbsp;: une trace sous l’évier depuis deux jours"></textarea>
+              <p class="field-error" id="f-signe-err" hidden>Décrivez en quelques mots ce que vous voyez.</p>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="f-nom">Prénom <span class="field-opt">(facultatif)</span></label>
+                <input id="f-nom" name="nom" type="text" autocomplete="given-name">
+              </div>
+              <div class="field">
+                <label for="f-contact">Téléphone ou e-mail</label>
+                <input id="f-contact" name="contact" type="text" inputmode="email" autocomplete="email" required aria-describedby="f-contact-err">
+                <p class="field-error" id="f-contact-err" hidden>Indiquez un numéro ou une adresse pour être rappelé.</p>
+              </div>
+            </div>
+            <button class="contact-cta" type="submit" data-thread-anchor="end"><span>Parler de mon besoin</span><b aria-hidden="true">↗</b></button>
+            <p class="demo-form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <p class="eyebrow"><span class="eyebrow-rule"></span> UNE QUESTION, UNE URGENCE</p>
+      <p class="footer-title">Un signe chez vous&nbsp;?<br> <em>On en parle.</em></p>
+      <div class="footer-actions">
+        <a class="btn-primary" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+        <a class="footer-urgent" href="#urgence"><span class="urgent-dot" aria-hidden="true"></span>Appeler en urgence</a>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="wordmark" href="#top"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="brand-drop" d="M16 2.5c4.9 6.6 9.5 11.7 9.5 17a9.5 9.5 0 0 1-19 0c0-5.3 4.6-10.4 9.5-17Z"/><path class="brand-shine" d="M11.6 19.8a4.6 4.6 0 0 0 4 4.4"/></svg><span class="brand-copy"><b>PL<i>—</i>06</b><small>CONCEPT DE DÉMONSTRATION</small></span></a>
+        <p>Plomberie, dépannage et installation. Un site pensé pour qu’un premier signe devienne un échange utile. Contenus de démonstration à remplacer.</p>
+      </div>
+      <nav class="footer-col" aria-label="Plan du site"><p class="footer-h">Le parcours</p><a href="#signe">01&nbsp;· Le signe</a><a href="#reseau">02&nbsp;· Le réseau</a><a href="#geste">03&nbsp;· Le geste</a><a href="#contact">04&nbsp;· On en parle</a></nav>
+      <div class="footer-col"><p class="footer-h">Contact</p><dl class="footer-fields"><div><dt>Téléphone</dt><dd>À configurer</dd></div><div><dt>Urgence</dt><dd>À configurer</dd></div><div><dt>Zone</dt><dd>À définir</dd></div></dl></div>
+      <div class="footer-col"><p class="footer-h">Informations</p><p>Mentions légales et confidentialité&nbsp;: pages à fournir avec l’artisan avant la mise en ligne.</p><p>Illustrations de studio générées. Démonstration non contractuelle.</p></div>
+    </div>
+    <div class="footer-bottom"><span>PL—06&nbsp;· concept de démonstration&nbsp;· 2026</span><a class="back-top" href="#top">Revenir en haut <span aria-hidden="true">↑</span></a></div>
+  </footer>
+  <a class="mobile-contact" href="#contact">Parler de mon besoin <span aria-hidden="true">↗</span></a>
+
+  <script src="app.js?v=20261103-exit3" defer></script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+/* PL—06 · D1 « Le voyage de la goutte » — carte G2 approuvée le 25/10/2026. */
+:root {
+  --night: #0f2427;
+  --night-2: #16323a;
+  --plan: #e6ecee;
+  --paper: #f2efe6;
+  --paper-2: #e9e4d6;
+  --ink: #14292c;
+  --ink-soft: #3d5357;
+  --copper: #c47a4a;
+  --copper-deep: #9a5530;
+  --water: #5fbfc0;
+  --water-deep: #2f8f92;
+  --brass: #d9a86c;
+  --action: #c4513a;
+  --action-deep: #a8432e;
+  --line-dark: rgba(242, 239, 230, 0.16);
+  --line-light: rgba(20, 41, 44, 0.14);
+  --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+  --gutter: clamp(16px, 5vw, 72px);
+  --max: 1320px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --header-h: 68px;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 24px); }
+/* ScrollTrigger measures by scrolling: CSS smooth scroll would skew its pin positions. */
+html.js-motion { scroll-behavior: auto; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; letter-spacing: -0.02em; text-wrap: balance; }
+h1 em, h2 em { font-style: italic; font-weight: 300; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; border-radius: 4px; }
+
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  padding: 10px 16px; background: var(--paper); color: var(--ink); border-radius: 6px; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+/* ---------- demo bar + header ---------- */
+.demo-bar {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 7px var(--gutter);
+  background: #0a191b; color: rgba(242, 239, 230, 0.78);
+  font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.08em; text-align: center;
+}
+.live-dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+
+/* Floating glass navigation: a pill that floats over the page and firms up once scrolled. */
+.site-header {
+  position: sticky; top: 0; z-index: 40; display: flex; align-items: center;
+  height: var(--header-h); padding: 8px var(--gutter); color: var(--paper); pointer-events: none;
+}
+.nav-shell {
+  pointer-events: auto; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  width: 100%; max-width: calc(var(--max) + 40px); height: 100%; margin: 0 auto; padding: 0 6px 0 14px;
+  border-radius: 999px; border: 1px solid rgba(242, 239, 230, 0.1);
+  background: rgba(12, 30, 33, 0.86); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  transition: background-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.site-header.is-scrolled .nav-shell { background: rgba(12, 30, 33, 0.94); box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.75); }
+/* At the top the header band continues the dark hero; once scrolled, the pill floats over the page. */
+.site-header:not(.is-scrolled) { background: var(--night); }
+.wordmark { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; color: inherit; }
+.brand-mark { flex: none; width: 28px; height: 28px; }
+.brand-drop { fill: var(--water); }
+.brand-shine { fill: none; stroke: rgba(255, 255, 255, 0.75); stroke-width: 1.6; stroke-linecap: round; }
+.brand-copy { display: grid; gap: 3px; line-height: 1; }
+.brand-copy b { font: 500 18px/1 var(--serif); letter-spacing: 0.01em; }
+.brand-copy b i { font-style: normal; color: var(--copper); }
+.brand-copy small { font: 500 8.5px/1.2 var(--mono); letter-spacing: 0.18em; color: rgba(242, 239, 230, 0.78); }
+.site-header nav { display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(242, 239, 230, 0.04); }
+.site-header nav a {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px; border-radius: 999px;
+  font: 500 13.5px/1 var(--sans); text-decoration: none; color: rgba(242, 239, 230, 0.72);
+  transition: color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+.nav-no { font: 500 10px/1 var(--mono); letter-spacing: 0.06em; color: var(--brass); }
+.site-header nav a:hover { color: var(--paper); background: rgba(242, 239, 230, 0.07); }
+.site-header nav a[aria-current="true"] { color: var(--paper); background: rgba(242, 239, 230, 0.12); }
+.nav-toggle {
+  display: none; place-items: center; align-content: center; gap: 5px; width: 44px; height: 44px; padding: 0;
+  border: 1px solid rgba(242, 239, 230, 0.18); border-radius: 50%; background: transparent; cursor: pointer;
+}
+.nav-toggle span { display: block; width: 16px; height: 1.5px; border-radius: 2px; background: var(--paper); transition: transform 0.3s var(--ease); }
+.site-header.is-open .nav-toggle span:first-child { transform: translateY(3.25px) rotate(45deg); }
+.site-header.is-open .nav-toggle span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+.nav-toggle:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; }
+@keyframes urgent-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 107, 82, 0.55); } 100% { box-shadow: 0 0 0 9px rgba(255, 107, 82, 0); } }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+/* Emergency: always reachable from the header, distinct from the main action. */
+.header-urgent {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px;
+  border-radius: 999px; border: 1px solid rgba(243, 182, 166, 0.55); color: #f6c7ba;
+  font: 600 14px/1 var(--sans); text-decoration: none; transition: background-color 0.25s var(--ease);
+}
+.header-urgent:hover { background: rgba(196, 81, 58, 0.18); }
+.urgent-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #ff6b52; animation: urgent-pulse 1.8s ease-out infinite; }
+.header-action {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px;
+  border-radius: 999px; background: var(--action); color: #fff;
+  font: 600 14px/1 var(--sans); text-decoration: none;
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.header-action:hover { background: var(--action-deep); }
+.header-action:active, .btn-primary:active, .contact-cta:active, .mini-cta:active { transform: scale(0.97); }
+
+/* ---------- chapter counter ---------- */
+.chapter-counter {
+  position: fixed; left: calc(var(--gutter) * 0.5); bottom: 26px; z-index: 30; transition: opacity 0.3s var(--ease);
+  display: grid; justify-items: center; gap: 2px;
+  font: 500 11px/1 var(--mono); letter-spacing: 0.08em;
+  transform: translateX(-50%);
+  mix-blend-mode: difference; color: #cfd8d9;
+  font-variant-numeric: tabular-nums;
+}
+.counter-current { font: 400 22px/1 var(--serif); color: #fff; }
+.counter-sep { opacity: 0.5; }
+
+/* ---------- thread ---------- */
+main { position: relative; }
+.thread {
+  position: absolute; inset: 0; z-index: 5;
+  width: 100%; height: 100%; overflow: visible; pointer-events: none;
+}
+.thread path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.thread-base { stroke: rgba(95, 191, 192, 0.18); stroke-width: 1.5; stroke-dasharray: 2 7; }
+/* The trail is water: a damp halo, a refraction rim, a translucent body and a specular glint.
+   It reads on paper and on night backgrounds alike. */
+.thread-wet { stroke: rgba(20, 70, 76, 0.07); stroke-width: 13; }
+.thread-edge { stroke: rgba(10, 46, 50, 0.2); stroke-width: 5.2; }
+.thread-flow { stroke: rgba(95, 191, 192, 0.44); stroke-width: 3.4; }
+.thread-glint { stroke: rgba(240, 255, 255, 0.85); stroke-width: 1; transform: translate(-0.8px, -0.9px); }
+
+/* ---------- shared type ---------- */
+.eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font: 500 11.5px/1.4 var(--mono); letter-spacing: 0.16em; color: var(--copper-deep);
+}
+.eyebrow-rule { width: 28px; height: 1px; background: currentColor; }
+.ch-number {
+  font: 300 clamp(72px, 11vw, 168px)/0.8 var(--serif); letter-spacing: -0.05em;
+  color: transparent; -webkit-text-stroke: 1px rgba(20, 41, 44, 0.28);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.chapter h2 { font-size: clamp(38px, 5.4vw, 76px); line-height: 1.02; margin-top: 18px; }
+.ch-lead { max-width: 54ch; margin-top: 22px; font-size: clamp(17px, 1.35vw, 19px); color: var(--ink-soft); }
+
+/* ---------- buttons ---------- */
+.btn-primary, .mini-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 26px; border-radius: 999px;
+  background: var(--action); color: #fff; text-decoration: none;
+  font: 600 16px/1 var(--sans);
+  box-shadow: 0 10px 30px -12px rgba(200, 85, 61, 0.7);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.btn-primary:hover, .mini-cta:hover { background: var(--action-deep); box-shadow: 0 14px 34px -12px rgba(200, 85, 61, 0.85); }
+.btn-primary span, .mini-cta span, .header-action span { transition: transform 0.25s var(--ease); }
+.btn-primary:hover span, .mini-cta:hover span, .header-action:hover span { transform: translate(2px, -2px); }
+.mini-cta { min-height: 46px; padding: 0 20px; font-size: 15px; box-shadow: none; background: transparent; color: var(--action-deep); border: 1px solid rgba(200, 85, 61, 0.5); }
+.mini-cta:hover { background: var(--action); color: #fff; box-shadow: none; }
+.mini-cta-dark { color: #f3b6a6; border-color: rgba(243, 182, 166, 0.45); }
+.btn-thread {
+  display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 6px;
+  color: var(--paper); text-decoration: none; font: 500 15px/1 var(--sans);
+}
+.btn-thread:hover { color: var(--water); }
+.thread-orb {
+  position: relative; width: 14px; height: 18px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(circle at 35% 35%, #c9f1f1, var(--water) 55%, var(--water-deep));
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); align-items: center; gap: clamp(24px, 4vw, 64px);
+  min-height: calc(100svh - var(--header-h) - 28px);
+  padding: clamp(40px, 6vw, 88px) var(--gutter) clamp(56px, 7vw, 104px);
+  background:
+    radial-gradient(60% 70% at 78% 45%, rgba(47, 143, 146, 0.32), transparent 70%),
+    linear-gradient(180deg, var(--night) 0%, #0c1e21 100%);
+  color: var(--paper);
+  isolation: isolate;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.07; pointer-events: none;
+  background-image: linear-gradient(rgba(242, 239, 230, 0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(242, 239, 230, 0.6) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(70% 80% at 30% 40%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(70% 80% at 30% 40%, #000 20%, transparent 75%);
+}
+.hero .eyebrow { color: var(--brass); }
+.hero h1 { margin-top: 26px; font-size: clamp(48px, 7.6vw, 118px); line-height: 0.96; letter-spacing: -0.035em; }
+.hero h1 em { color: var(--water); }
+.hero-intro { max-width: 46ch; margin-top: 28px; font-size: clamp(17px, 1.45vw, 20px); color: rgba(242, 239, 230, 0.78); }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 38px; }
+.hero-media { position: relative; margin: 0; justify-self: center; width: min(100%, 500px, calc((100svh - 200px) * 0.8)); }
+.hero-media picture { display: block; aspect-ratio: 4 / 5; }
+.hero-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  border-radius: 999px 999px 18px 18px;
+  outline: 1px solid rgba(217, 168, 108, 0.35); outline-offset: 10px;
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.75);
+}
+/* The faucet drips: sprites cut from the two OpenArt stills, laid exactly where they were on the
+   1344×1680 master (same 4:5 frame, no crop). Drop x 573 y 523 w 152; crown x 470 y 1236 w 400;
+   ripple x 260 y 1418 w 800; the water is at x 655 y 1490. */
+.drip { position: absolute; inset: 0 0 auto; aspect-ratio: 4 / 5; pointer-events: none; overflow: hidden; border-radius: 999px 999px 18px 18px; }
+.hero-media .drip img { position: absolute; height: auto; object-fit: fill; border-radius: 0; outline: none; box-shadow: none; will-change: transform, opacity; }
+.hero-media .drip-drop { left: 42.634%; top: 31.131%; width: 11.310%; transform-origin: 50% 2.5%; }
+.hero-media .drip-crown { left: 34.970%; top: 73.571%; width: 29.762%; transform-origin: 46.25% 100%; opacity: 0; }
+.hero-media .drip-ripple { left: 19.345%; top: 84.405%; width: 59.524%; transform-origin: 49.4% 45%; opacity: 0; }
+.hero-media figcaption { text-align: right; padding: 0 4% 0 54%; } /* clear of the trail leaving the ripple */
+.hero-media figcaption, .signe-media figcaption, .contact-media figcaption {
+  margin-top: 10px; font: 500 9.5px/1.4 var(--mono); letter-spacing: 0.14em; opacity: 0.55;
+}
+.signe-media figcaption, .contact-media figcaption { text-align: center; }
+
+/* ---------- 01 le signe ---------- */
+.chapter { position: relative; padding: clamp(80px, 11vw, 168px) var(--gutter); }
+.ch-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 3vw, 48px); align-items: start; max-width: var(--max); margin: 0 auto; }
+.ch-signe { background: var(--paper); }
+.signe-body {
+  display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 88px); align-items: start;
+  max-width: var(--max); margin: clamp(48px, 6vw, 88px) auto 0;
+}
+.signe-media { margin: 0; position: sticky; top: calc(var(--header-h) + 32px); }
+.signe-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 200px 200px 14px 14px; outline: 1px solid rgba(0, 0, 0, 0.06); outline-offset: -1px; }
+.situation-list { display: grid; border-top: 1px solid var(--line-light); }
+.situation {
+  display: grid; grid-template-columns: 56px minmax(0, 1fr) 24px; align-items: center; gap: 12px;
+  width: 100%; min-height: 84px; padding: 18px 8px 18px 0;
+  background: transparent; border: 0; border-bottom: 1px solid var(--line-light); text-align: left; cursor: pointer;
+  transition: background-color 0.3s var(--ease), padding 0.3s var(--ease);
+}
+.situation::after {
+  content: ""; width: 12px; height: 12px; justify-self: end; border-radius: 50%;
+  border: 1px solid rgba(20, 41, 44, 0.3); transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.situation:hover { background: rgba(20, 41, 44, 0.03); }
+.situation[aria-pressed="true"] { padding-left: 14px; background: linear-gradient(90deg, rgba(95, 191, 192, 0.14), transparent 80%); }
+.situation[aria-pressed="true"]::after { background: var(--water-deep); border-color: var(--water-deep); transform: scale(1.15); }
+.situation-no { font: 500 12px/1 var(--mono); letter-spacing: 0.1em; color: var(--copper-deep); }
+.situation-copy { display: grid; gap: 4px; }
+.situation-copy b { font: 400 clamp(21px, 2vw, 27px)/1.15 var(--serif); letter-spacing: -0.01em; }
+.situation-copy small { font: 500 12px/1.4 var(--mono); letter-spacing: 0.04em; color: var(--ink-soft); }
+.answer {
+  margin-top: 28px; padding: clamp(22px, 2.6vw, 34px);
+  border-radius: 14px; background: var(--night); color: var(--paper);
+  box-shadow: 0 30px 60px -40px rgba(15, 36, 39, 0.8);
+}
+.answer-kicker, .room-kicker, .contact-card-title { font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.16em; color: var(--brass); }
+.answer h3 { margin-top: 12px; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.1; }
+.answer p:last-child { margin-top: 12px; color: rgba(242, 239, 230, 0.78); max-width: 52ch; }
+.answer.is-swapping h3, .answer.is-swapping p { animation: swap-in 0.45s var(--ease); }
+@keyframes swap-in { from { opacity: 0; transform: translateY(6px); } }
+.signe-choices .mini-cta { margin-top: 26px; }
+
+/* ---------- 02 le réseau ---------- */
+.ch-reseau {
+  background:
+    linear-gradient(rgba(20, 41, 44, 0.05) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(20, 41, 44, 0.05) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--plan);
+  padding-block: 0;
+  z-index: 6; /* the thread runs behind: inside the house, the network takes over */
+}
+.reseau-pin {
+  display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: clamp(24px, 4vw, 72px); align-items: center;
+  max-width: var(--max); min-height: 100svh; margin: 0 auto;
+  padding: calc(var(--header-h) + 28px) 0 32px;
+}
+.reseau-copy .ch-number { font-size: clamp(56px, 6vw, 88px); }
+.reseau-copy h2 { margin-top: 12px; }
+.reseau-copy h2 { font-size: clamp(36px, 4.6vw, 66px); }
+.reseau-steps { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 4px; counter-reset: step; }
+.reseau-step {
+  position: relative; padding: 8px 0 8px 34px; color: var(--ink-soft); font-size: 15.5px; line-height: 1.5;
+  opacity: 0.5; transition: opacity 0.4s var(--ease);
+}
+.reseau-step::before {
+  counter-increment: step; content: "0" counter(step);
+  position: absolute; left: 0; top: 12px; font: 500 11px/1 var(--mono); color: var(--copper-deep);
+}
+.reseau-step b { display: block; color: var(--ink); font-weight: 600; }
+.reseau-step.is-active { opacity: 1; }
+.rooms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.room {
+  min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(20, 41, 44, 0.2);
+  font: 500 14px/1 var(--sans);
+  transition: background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.room:hover { border-color: var(--ink); }
+.room[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.room-info { margin-top: 18px; padding: 18px 20px; border-left: 2px solid var(--copper); background: rgba(255, 255, 255, 0.55); border-radius: 0 10px 10px 0; min-height: 96px; }
+@media (min-width: 900px) and (max-height: 820px) {
+  .reseau-copy .ch-number { display: none; }
+  .reseau-copy h2 { font-size: clamp(32px, 3.6vw, 52px); }
+}
+.room-kicker { color: var(--copper-deep); }
+#room-copy { margin-top: 8px; font-size: 15.5px; }
+.reseau-stage { position: relative; }
+/* Left-aligned in the left two thirds: the right of the stage is the lane where the water leaves the house. */
+.stage-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: flex-start; max-width: 66%; margin-top: 10px; padding-left: 4%; font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.08em; color: var(--ink-soft); }
+.legend-cold::before, .legend-hot::before { content: ""; display: inline-block; width: 18px; height: 3px; margin-right: 8px; vertical-align: middle; border-radius: 2px; background: var(--water-deep); }
+.legend-hot::before { background: var(--copper); }
+
+/* house: two OpenArt stills with the same camera (cutaway below, façade above), markers and
+   labels in HTML so they stay readable at every width. Positions are % of the 1680×1344 frame. */
+.house { position: relative; width: 100%; aspect-ratio: 5 / 4; }
+.house picture, .house picture img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.house picture img { object-fit: contain; }
+/* The stills sit on a light grey close to the page's plan: fade their edges so no photo rectangle
+   shows around the house. */
+.house picture {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent), linear-gradient(to bottom, transparent, #000 13%, #000 87%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 13%, #000 87%, transparent), linear-gradient(to bottom, transparent, #000 13%, #000 87%, transparent);
+  mask-composite: intersect;
+}
+/* The water thread inside the house: it enters at the meter, follows the network, then leaves toward 03.
+   Same water look as the page thread; drawn by the pinned timeline, fully drawn by default. */
+.house-flow { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.house-flow path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: calc(var(--len, 0) * 1px) calc(var(--len, 0) * 1px); stroke-dashoffset: calc(var(--hf, 0) * var(--len, 0) * 1px); }
+.hf-wet { stroke: rgba(20, 70, 76, 0.1); stroke-width: 13; }
+.hf-edge { stroke: rgba(10, 46, 50, 0.24); stroke-width: 5.2; }
+.hf-flow { stroke: rgba(95, 191, 192, 0.7); stroke-width: 3.4; }
+.hf-glint { stroke: rgba(240, 255, 255, 0.9); stroke-width: 1; }
+.house.is-revealed .hf-g { --hf: 0 !important; }
+/* The water runs in the house's own pipes: two masks cut from the cutaway (blue cold-water pipes, copper
+   hot-water pipes) light up from the street pipe outward (--ef), then from the water heater (--ec).
+   Fully lit by default: no JS, reduced motion and a picked room all show the whole network. */
+.pipe-glow { position: absolute; inset: 0; pointer-events: none; --ef: 1; --ec: 1; filter: drop-shadow(0 0 2px rgba(190, 250, 250, 0.9)) drop-shadow(0 0 7px rgba(95, 191, 192, 0.55)); }
+.pipe-glow i { position: absolute; inset: 0; -webkit-mask: url("assets/d1/maison-tubes-ef.webp") 0 0 / 100% 100% no-repeat; mask: url("assets/d1/maison-tubes-ef.webp") 0 0 / 100% 100% no-repeat; }
+.pipe-glow .pg-ef { background: radial-gradient(circle farthest-corner at 14% 72%, rgba(214, 255, 255, 0.95) calc(var(--ef) * 100% - 7%), rgba(120, 225, 228, 0.9) calc(var(--ef) * 100% - 2%), transparent calc(var(--ef) * 100%)); }
+.pipe-glow .pg-ec { -webkit-mask-image: url("assets/d1/maison-tubes-ec.webp"); mask-image: url("assets/d1/maison-tubes-ec.webp"); background: radial-gradient(circle farthest-corner at 50% 31%, rgba(255, 226, 196, 0.95) calc(var(--ec) * 100% - 7%), rgba(240, 160, 110, 0.9) calc(var(--ec) * 100% - 2%), transparent calc(var(--ec) * 100%)); }
+.house.is-revealed .pipe-glow { --ef: 1 !important; --ec: 1 !important; }
+@media (max-width: 899px) { .pipe-glow { filter: drop-shadow(0 0 2px rgba(214, 255, 255, 1)) drop-shadow(0 0 6px rgba(95, 191, 192, 0.9)); } }
+.marker { position: absolute; left: var(--x); top: var(--y); width: 34px; height: 34px; margin: -17px 0 0 -17px; display: grid; place-items: center; cursor: pointer; }
+.marker-halo { position: absolute; inset: 0; border-radius: 50%; background: rgba(200, 85, 61, 0.16); border: 1px solid rgba(200, 85, 61, 0.55); }
+.marker-dot { position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--action); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(15, 36, 39, 0.35); }
+.marker.is-on .marker-halo { background: rgba(200, 85, 61, 0.3); animation: halo 1.8s var(--ease) infinite; }
+@keyframes halo { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
+
+/* Revealed (final) state is the default: no JS, mobile and reduced motion all get it. */
+.h-facade { opacity: 0; pointer-events: none; }
+.js-motion .house .h-facade { opacity: 1; }
+
+/* ---------- 03 le geste ---------- */
+.ch-geste { background: var(--night); color: var(--paper); overflow: hidden; isolation: isolate; }
+.geste-band { position: absolute; inset: 0; z-index: -1; }
+.geste-band img { width: 100%; height: 100%; object-fit: cover; opacity: 0.34; }
+.geste-band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, var(--night) 22%, rgba(15, 36, 39, 0.82) 55%, rgba(15, 36, 39, 0.55)); }
+.geste-inner { max-width: var(--max); margin: 0 auto; }
+.ch-geste .eyebrow { color: var(--brass); }
+.ch-geste .ch-number { -webkit-text-stroke-color: rgba(242, 239, 230, 0.3); }
+.ch-geste h2 em { color: var(--brass); }
+.ch-geste .ch-lead { color: rgba(242, 239, 230, 0.76); }
+.method {
+  position: relative; list-style: none; margin: clamp(56px, 7vw, 96px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 48px);
+}
+.method::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: rgba(242, 239, 230, 0.2); }
+.method-step { position: relative; padding-top: 40px; }
+.method-node { position: absolute; left: 0; top: 0; width: 15px; height: 15px; border-radius: 50%; background: var(--night); border: 1.5px solid var(--brass); }
+.method-step.is-lit .method-node { background: var(--brass); box-shadow: 0 0 0 6px rgba(217, 168, 108, 0.16); }
+.method-node { transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.method-no { font: 500 11.5px/1 var(--mono); letter-spacing: 0.12em; color: var(--brass); }
+.method-step h3 { margin-top: 14px; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.12; }
+.method-step p { margin-top: 12px; color: rgba(242, 239, 230, 0.74); max-width: 34ch; }
+.ch-geste .mini-cta { margin-top: clamp(40px, 5vw, 64px); }
+
+/* ---------- 04 contact ---------- */
+.ch-contact {
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(28px, 6vw, 104px); align-items: center;
+  max-width: calc(var(--max) + 2 * var(--gutter)); margin: 0 auto;
+}
+.contact-media { margin: 0; align-self: start; position: sticky; top: calc(var(--header-h) + 32px); } /* follows the tall form: no empty column */
+.contact-media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 14px 14px 200px 200px; outline: 1px solid rgba(0, 0, 0, 0.06); outline-offset: -1px; }
+.contact-card { margin-top: 34px; padding: clamp(22px, 2.6vw, 34px); border: 1px solid var(--line-light); border-radius: 16px; background: #fbf9f3; box-shadow: 0 30px 70px -50px rgba(15, 36, 39, 0.6); }
+.contact-card-title { color: var(--copper-deep); }
+.contact-fields { margin: 16px 0 0; display: grid; }
+.contact-fields div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line-light); }
+.contact-fields dt { font-weight: 600; }
+.contact-fields dd { margin: 0; color: var(--ink-soft); font: 500 13px/1.6 var(--mono); text-align: right; }
+.contact-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  margin-top: 22px; min-height: 64px; padding: 0 12px 0 26px; border-radius: 999px;
+  background: var(--action); color: #fff; text-decoration: none; font: 600 18px/1 var(--sans);
+  box-shadow: 0 14px 34px -14px rgba(200, 85, 61, 0.8);
+  transition: background-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.contact-cta b { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); font-weight: 500; transition: transform 0.25s var(--ease); }
+.contact-cta:hover { background: var(--action-deep); }
+.contact-cta:hover b { transform: rotate(45deg); }
+/* Demo form: real labels, inline errors, an explicit "nothing is sent" status. */
+.demo-form { margin-top: 22px; display: grid; gap: 14px; }
+.demo-form-note { font: 500 11px/1.5 var(--mono); letter-spacing: 0.06em; color: var(--copper-deep); }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.field label { font-weight: 600; font-size: 15px; color: var(--ink); }
+.field-opt { font-weight: 400; color: var(--ink-soft); }
+.field input, .field textarea {
+  width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid rgba(20, 41, 44, 0.28); border-radius: 10px;
+  background: #fff; color: var(--ink); font: 400 16px/1.4 var(--sans); resize: vertical;
+}
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--water-deep); outline-offset: 2px; border-color: var(--water-deep); }
+/* Error state: the field, its label and its focus ring turn red; the message carries an icon. */
+.field [aria-invalid="true"] { border-color: var(--action-deep); border-width: 1.5px; background: #fff6f3; }
+.field [aria-invalid="true"]:focus-visible { outline-color: var(--action-deep); border-color: var(--action-deep); }
+.field:has([aria-invalid="true"]) label { color: var(--action-deep); }
+.field-error { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 1.45; color: var(--action-deep); }
+.field-error[hidden], .form-summary[hidden] { display: none; }
+.field-error::before {
+  content: "!"; flex: none; display: grid; place-items: center; width: 18px; height: 18px; margin-top: 1px;
+  border-radius: 50%; background: var(--action-deep); color: #fff; font: 700 11px/1 var(--sans);
+}
+.form-summary { padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(168, 67, 46, 0.45); border-left: 4px solid var(--action-deep); background: #fff4f0; color: var(--ink); font-size: 15px; }
+.form-summary ul { margin: 6px 0 0; padding-left: 18px; }
+.form-summary a { color: var(--action-deep); font-weight: 600; text-underline-offset: 3px; }
+.form-summary a:focus-visible { outline: 2px solid var(--action-deep); outline-offset: 2px; }
+.demo-form .contact-cta { width: 100%; border: 0; cursor: pointer; margin-top: 4px; }
+.demo-form-status:not(:empty) { padding: 12px 14px; border-radius: 10px; background: rgba(47, 143, 146, 0.12); color: var(--ink); font-size: 15px; }
+.legal { margin: 0; flex-basis: 100%; opacity: 0.8; }
+
+/* ---------- chapter 02: selection state + HUD labels ---------- */
+.house.has-selection .marker:not(.is-on) { opacity: 0.38; }
+.marker-dot { transition: transform 0.35s var(--ease), background-color 0.35s var(--ease); }
+.marker.is-on .marker-dot { transform: scale(1.5); background: var(--ink); border-color: var(--action); }
+.hud {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, calc(-100% - 22px));
+  padding: 5px 8px; border-radius: 4px; white-space: nowrap; pointer-events: none;
+  background: rgba(15, 36, 39, 0.9); color: #e6ecee; font: 500 11px/1.25 var(--mono); letter-spacing: 0.06em;
+  transition: opacity 0.35s var(--ease), background-color 0.35s var(--ease);
+}
+.hud[data-align="start"] { transform: translate(-14px, calc(-100% - 22px)); }
+/* The two networks are named on the picture itself: colour is never the only cue. */
+.pipe-tag {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%); pointer-events: none;
+  padding: 4px 8px 4px 7px; border-radius: 4px; border-left: 3px solid var(--water-deep);
+  background: rgba(255, 255, 255, 0.94); color: var(--ink); font: 500 11px/1.2 var(--mono); letter-spacing: 0.08em; white-space: nowrap;
+  box-shadow: 0 4px 12px -6px rgba(15, 36, 39, 0.45);
+}
+.pipe-hot { border-left-color: var(--copper); }
+/* Picking a room always shows the cutaway (click or keyboard), even before the reveal reaches it. */
+.house.is-revealed .h-facade { opacity: 0 !important; transition: opacity 0.5s var(--ease); }
+.pipe-chip { padding: 3px 6px 3px 5px; font-size: 11px; letter-spacing: 0.06em; }
+.house.has-selection .hud:not(.is-on) { opacity: 1 !important; background: rgba(255, 255, 255, 0.94); color: var(--ink); box-shadow: 0 0 0 1px var(--line-light); }
+.hud.is-on { background: var(--action); color: #fff; }
+/* Small screens: only the picked room is labelled, so labels never overlap or shrink. */
+@media (max-width: 599px) { .hud:not(.is-on) { display: none; } }
+/* Small screens: the long hot-water label moves right so the kitchen EF chip never covers it. */
+@media (max-width: 599px) { .pipe-tag.pipe-hot-main { --x: 44% !important; --y: 48% !important; } }
+/* What the visitor picked is always shown, even before the reveal animation reaches it. */
+.hud.is-on, .marker.is-on { opacity: 1 !important; }
+.reseau-cta { margin-top: 16px; }
+
+/* ---------- designed focus states ---------- */
+.btn-primary:focus-visible, .mini-cta:focus-visible, .contact-cta:focus-visible, .header-action:focus-visible, .mobile-contact:focus-visible {
+  outline: 2px solid var(--water); outline-offset: 4px; box-shadow: 0 0 0 7px rgba(95, 191, 192, 0.22);
+}
+.situation:focus-visible, .room:focus-visible { outline: 2px solid var(--water-deep); outline-offset: 3px; }
+
+/* The thread reaches the final call to action: it lights up once. */
+.contact-cta { position: relative; z-index: 6; } /* above the end of the water trail */
+/* Emergency block in the contact card. */
+.urgent { margin-top: 18px; padding: 16px 18px; border-radius: 12px; background: rgba(196, 81, 58, 0.07); border: 1px solid rgba(196, 81, 58, 0.35); }
+.urgent-kicker { font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.16em; color: var(--action-deep); }
+.urgent-copy { margin-top: 6px; color: var(--ink); font-size: 15.5px; }
+.urgent-call {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; min-height: 48px; padding: 0 22px;
+  border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 600 16px/1 var(--sans); cursor: pointer;
+}
+.urgent-call:hover { background: #0b1d20; }
+.urgent-call:focus-visible, .header-urgent:focus-visible { outline: 2px solid var(--water-deep); outline-offset: 3px; }
+.urgent-status:not(:empty) { margin-top: 10px; font-size: 14.5px; color: var(--ink-soft); }
+.situation-urgent .situation-no, .situation-urgent b { color: var(--action-deep); }
+.mini-cta.is-urgent { background: var(--action); color: #fff; border-color: var(--action); }
+.contact-cta.is-reached { animation: reached 1.4s var(--ease) 1; }
+.contact-cta.is-reached b { background: var(--water); color: var(--night); box-shadow: 0 0 0 6px rgba(95, 191, 192, 0.28), 0 0 22px rgba(95, 191, 192, 0.6); }
+@keyframes reached { 0% { box-shadow: 0 0 0 0 rgba(95, 191, 192, 0.7); } 100% { box-shadow: 0 0 0 22px rgba(95, 191, 192, 0); } }
+
+/* ---------- footer + mobile bar ---------- */
+/* Footer: a last call to action, then the site map, contact placeholders and legal notes. */
+.site-footer { background: var(--night); color: rgba(242, 239, 230, 0.72); padding: clamp(64px, 8vw, 112px) var(--gutter) 28px; }
+.footer-cta, .footer-grid, .footer-bottom { max-width: var(--max); margin: 0 auto; }
+.footer-cta { display: grid; gap: 22px; padding-bottom: clamp(48px, 6vw, 80px); border-bottom: 1px solid var(--line-dark); }
+.footer-cta .eyebrow { color: var(--brass); }
+.footer-title { max-width: 16ch; font: 400 clamp(38px, 5.4vw, 76px)/1 var(--serif); letter-spacing: -0.025em; color: var(--paper); }
+.footer-title em { color: var(--water); white-space: nowrap; }
+@media (min-width: 900px) {
+  .footer-cta { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: 48px; align-items: end; }
+  .footer-cta .eyebrow, .footer-title { grid-column: 1; }
+  .footer-actions { grid-column: 2; grid-row: 2; justify-self: end; margin-top: 0; }
+}
+.footer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 8px; }
+.footer-urgent {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 999px;
+  border: 1px solid rgba(243, 182, 166, 0.5); color: #f6c7ba; text-decoration: none; font: 600 16px/1 var(--sans);
+  transition: background-color 0.25s var(--ease);
+}
+.footer-urgent:hover { background: rgba(196, 81, 58, 0.18); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: clamp(28px, 4vw, 56px); padding: clamp(40px, 5vw, 64px) 0; }
+.footer-brand .wordmark { color: var(--paper); }
+.footer-brand p { max-width: 34ch; margin-top: 18px; font-size: 15px; line-height: 1.65; }
+.footer-h { margin-bottom: 12px; font: 500 10.5px/1.4 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
+.footer-col a { display: flex; align-items: center; min-height: 44px; color: rgba(242, 239, 230, 0.8); text-decoration: none; font-size: 15px; transition: color 0.25s var(--ease); }
+.footer-col a:hover { color: var(--paper); }
+.footer-col > p:not(.footer-h) { font-size: 14px; line-height: 1.6; }
+.footer-col > p + p:not(.footer-h) { margin-top: 10px; }
+.footer-fields { margin: 0; }
+.footer-fields div { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px dashed var(--line-dark); font-size: 14.5px; }
+.footer-fields dd { margin: 0; font: 500 12px/1.6 var(--mono); color: rgba(242, 239, 230, 0.6); }
+.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-top: 22px; border-top: 1px solid var(--line-dark); font: 500 11px/1.4 var(--mono); letter-spacing: 0.08em; }
+.back-top {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--line-dark); color: var(--paper); text-decoration: none; transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.back-top:hover { border-color: var(--water); color: var(--water); }
+.site-footer a:focus-visible { outline: 2px solid var(--water); outline-offset: 3px; }
+.mobile-contact { display: none; }
+
+/* ---------- hero entrance (CSS, so it never waits for JS) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * { animation: rise 0.9s var(--ease) both; }
+  .hero h1 { animation-name: rise-solid; } /* stays painted: it is the page's LCP */
+  .hero-copy > :nth-child(2) { animation-delay: 0.08s; }
+  .hero-copy > :nth-child(3) { animation-delay: 0.16s; }
+  .hero-copy > :nth-child(4) { animation-delay: 0.24s; }
+  .hero-media { animation: settle 1.2s var(--ease) both; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } }
+@keyframes rise-solid { from { transform: translateY(22px); } }
+@keyframes settle { from { opacity: 0; transform: scale(0.94); } }
+
+/* ---------- reveal (JS only) ---------- */
+.js-motion .reveal { opacity: 0; transform: translateY(26px); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px) {
+  .nav-toggle { display: inline-grid; }
+  .site-header nav {
+    position: absolute; top: calc(100% + 8px); left: 0; right: 0; display: none; flex-direction: column; gap: 2px;
+    padding: 10px; border-radius: 22px; border: 1px solid rgba(242, 239, 230, 0.12);
+    background: var(--night); box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
+  }
+  .site-header.is-open nav { display: flex; }
+  .site-header nav a { min-height: 50px; padding: 0 16px; font-size: 16px; border-radius: 14px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+/* Small screens, motion on: while the house is pinned, the story step reads under it (the steps list
+   itself sits above, out of view). Hidden otherwise: the list already says it. */
+.stage-caption { display: none; }
+@media (max-width: 899px) {
+  .js-motion .stage-caption {
+    display: flex; gap: 12px; align-items: baseline; min-height: 3.2em; margin: 6px 20px 0; padding: 10px 14px;
+    border-left: 2px solid var(--copper); background: rgba(255, 255, 255, 0.72); border-radius: 0 10px 10px 0;
+    font-size: 15px; line-height: 1.45; color: var(--ink-soft);
+  }
+  /* The caption tells the steps while the house is pinned: the list would repeat it right after, so it
+     stays for screen readers only (the caption is aria-hidden). */
+  .js-motion .reseau-steps { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; margin: 0; }
+  .stage-caption > span:first-child { font: 500 11px/1 var(--mono); color: var(--copper-deep); }
+  .stage-caption b { color: var(--ink); font-weight: 600; }
+}
+/* Small screens: the trail runs in the left gutter, so it gets more body and a drop of water at its
+   head that runs down as the visitor scrolls. */
+.thread-drop { display: none; }
+@media (max-width: 899px) {
+  .thread-wet { stroke-width: 12; stroke: rgba(95, 191, 192, 0.12); }
+  .thread-edge, .hf-edge { stroke: rgba(95, 191, 192, 0.22); }
+  .hf-wet { stroke: rgba(95, 191, 192, 0.14); stroke-width: 11; }
+  .thread-drop {
+    display: block; position: absolute; left: 0; top: 0; z-index: 5; width: 10px; height: 14px; margin: -11px 0 0 -5px;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; pointer-events: none; opacity: 0; transition: opacity 0.3s var(--ease);
+    background: radial-gradient(circle at 36% 62%, #e9fdfd 0 12%, #8fe0e0 30%, var(--water) 60%, var(--water-deep));
+    box-shadow: 0 0 0 3px rgba(95, 191, 192, 0.2), 0 0 14px 2px rgba(95, 191, 192, 0.45);
+  }
+  .thread-drop.is-on { opacity: 1; }
+}
+@media (max-width: 899px) {
+  :root { --header-h: 60px; }
+  body { font-size: 16px; }
+  .chapter-counter { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; gap: 8px; }
+  .hero-media { order: -1; width: min(56%, 250px); }
+  .hero-media figcaption { display: none; }
+  .hero h1 { font-size: clamp(40px, 11vw, 56px); }
+  .hero-intro { margin-top: 18px; }
+  .hero h1 { margin-top: 16px; }
+  .hero-actions { margin-top: 28px; }
+  .ch-head { grid-template-columns: 1fr; }
+  .ch-number { font-size: 64px; }
+  .signe-body, .reseau-pin, .ch-contact { grid-template-columns: 1fr; }
+  .signe-media { position: relative; top: 0; }
+  .signe-media img { aspect-ratio: 16 / 11; border-radius: 120px 120px 12px 12px; object-position: 50% 42%; }
+  .reseau-pin { min-height: 0; padding: 80px 0; gap: 0; }
+  .reseau-copy .eyebrow { margin-top: 8px; }
+  .reseau-copy { display: contents; }
+  .reseau-stage { margin: 28px -8px 0; }
+  .reseau-steps, .rooms, .room-info { order: 1; }
+  .method { grid-template-columns: 1fr; gap: 28px; }
+  .method::before { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+  .method-step { padding: 0 0 0 40px; }
+  .contact-media { position: relative; top: 0; }
+  .contact-media img { aspect-ratio: 16 / 11; border-radius: 12px 12px 120px 120px; }
+  .site-footer { padding-bottom: 96px; }
+  .nav-shell { padding: 0 4px 0 12px; }
+  .mobile-contact {
+    position: fixed; left: 16px; right: 16px; bottom: 14px; z-index: 50;
+    display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px;
+    border-radius: 999px; background: var(--action); color: #fff; text-decoration: none; font: 600 16px/1 var(--sans);
+    box-shadow: 0 16px 34px -14px rgba(15, 36, 39, 0.7);
+    transform: translateY(140%); transition: transform 0.4s var(--ease);
+  }
+  .mobile-contact.is-visible { transform: none; }
+  .thread-flow { stroke-width: 3.6; stroke: rgba(95, 191, 192, 0.75); }
+  .thread-edge { stroke-width: 6; }
+  .thread-glint { stroke-width: 1.2; }
+}
+@media (max-width: 599px) {
+  .header-action { display: none; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .demo-bar { font-size: 9.5px; letter-spacing: 0.04em; }
+  .brand-copy small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .mobile-contact { transition: none; }
+}
+
+.chapter-counter.is-hidden { opacity: 0; pointer-events: none; }
+
+/* Tag lists: separators drawn by CSS; on small screens the tags wrap without orphan dots. */
+.tag-list { display: inline-flex; flex-wrap: wrap; }
+.tag-list > span + span::before { content: "·"; margin: 0 0.55em; opacity: 0.7; }
+@media (max-width: 599px) {
+  .tag-list { column-gap: 16px; row-gap: 4px; }
+  .tag-list > span + span::before { content: none; }
+}
+/* Reduced motion: the ripple stays visible, so the trail is born from the water. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-media .drip-ripple { opacity: 0.85; }
+}
+.house.is-revealed .pipe-tag { opacity: 1 !important; }
+.house.is-revealed .house-cut { opacity: 1 !important; }
+
+/* Below the pinned chapter: laid out only as the visitor approaches (lighter first render on mobile). */
+.ch-geste, .ch-contact { content-visibility: auto; contain-intrinsic-size: auto 1000px; }
